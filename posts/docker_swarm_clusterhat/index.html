@@ -134,8 +134,8 @@ pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:"/>
 <li><a href="#app">Our app, an HTTP <em>server</em></a></li>
 <li><a href="#swarm">Docker Swarm, finally!</a></li>
 </ul>
-<p><strong>NOTE</strong>: during this tutorial I&rsquo;ll be using <strong>ARM32v6</strong> images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with <a href="https://www.docker.com/blog/multi-arch-images/">Buildx</a>, are covered in <a href="https://carmeloc.github.io/misc/2020/03/19/docker_buildx.html">another article</a>.</p>
-<p><a href="https://carmeloc.github.io/misc/2020/03/09/raspi_clusterhat_install.html">Installation of ClusterHAT</a> has been described in a <a href="https://carmeloc.github.io/misc/2020/03/09/raspi_clusterhat_install.html">previous post</a>.</p>
+<p><strong>NOTE</strong>: during this tutorial I&rsquo;ll be using <strong>ARM32v6</strong> images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with <a href="https://www.docker.com/blog/multi-arch-images/">Buildx</a>, are covered in <a href="https://carmelo0x99.github.io/docker_buildx.html">another article</a>.</p>
+<p><a href="https://carmelo0x99.github.io/raspi_clusterhat_install.html">Installation of ClusterHAT</a> has been described in a <a href="https://carmelo0x99.github.io/raspi_clusterhat_install.html">previous post</a>.</p>
 <p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h3 id="the-basics-hardware-architecture">The basics: hardware architecture</h3>
 <p>Controller:</p>
@@ -186,21 +186,21 @@ func main() {
     }
 }
 </code></pre><p>The first step is to build an image on the Controller and run it:</p>
-<pre tabindex="0"><code>pi@ctrl $ docker build -t carmeloc/goweb:1.0 -f Dockerfile.arm .
+<pre tabindex="0"><code>pi@ctrl $ docker build -t carmelo0x99/goweb:1.0 -f Dockerfile.arm .
 Sending build context to Docker daemon  110.6kB
 ...
 Successfully built 1f4eef919f7b
-Successfully tagged carmeloc/goweb:1.0
+Successfully tagged carmelo0x99/goweb:1.0
 
 pi@ctrl $ docker image ls
 REPOSITORY       TAG         IMAGE ID         CREATED           SIZE
-carmeloc/goweb   1.0         11c04ac64701     11 minutes ago    11.5MB   &lt;&lt;&lt; new image
+carmelo0x99/goweb   1.0         11c04ac64701     11 minutes ago    11.5MB   &lt;&lt;&lt; new image
 &lt;none&gt;           &lt;none&gt;      bc2d8f7dafec     11 minutes ago    349MB
 arm32v6/golang   alpine      af1c8ccb1a0f     2 weeks ago       342MB    &lt;&lt;&lt; intermediate layers
 arm32v6/alpine   latest      8093515ca679     8 weeks ago       4.81MB   &lt;&lt;&lt; intermediate layers
 </code></pre><p><strong>NOTE</strong>: a comparison between the size of our image and the arm32v6/golang image shows a dramatic reduction is size. This is the main benefit of <a href="https://docs.docker.com/develop/develop-images/multistage-build/">multi-stage build</a>.</p>
 <p>Let&rsquo;s run our image:</p>
-<pre tabindex="0"><code>pi@ctrl $ docker run -d -p 8888:8080 carmeloc/goweb:1.0
+<pre tabindex="0"><code>pi@ctrl $ docker run -d -p 8888:8080 carmelo0x99/goweb:1.0
 a8c0d0b5c784251f2afb374c3ed156095ed82004f8501bb4887bb5dedecb07e4
 </code></pre><p>&hellip; and from any host connected to the same subnet:</p>
 <pre tabindex="0"><code>user@host $ curl http://10.0.2.207:8888/Hello!
@@ -208,9 +208,9 @@ This is a8c0d0b5c784 running on linux/arm saying: Hello!
 </code></pre><p>Notice how the <em>hostname</em> matches the container ID on the controller:</p>
 <pre tabindex="0"><code>pi@ctrl $ docker container ls
 CONTAINER ID     IMAGE                COMMAND       CREATED          STATUS          PORTS                    NAMES
-a8c0d0b5c784     carmeloc/goweb:1.0   &quot;./main.go&quot;   14 minutes ago   Up 14 minutes   0.0.0.0:8888-&gt;8080/tcp   happy_spence
+a8c0d0b5c784     carmelo0x99/goweb:1.0   &quot;./main.go&quot;   14 minutes ago   Up 14 minutes   0.0.0.0:8888-&gt;8080/tcp   happy_spence
 </code></pre><p>Once we&rsquo;re satified with our image, we can push it to Docker Hub:</p>
-<pre tabindex="0"><code>pi@ctrl $ docker push carmeloc/goweb:1.0
+<pre tabindex="0"><code>pi@ctrl $ docker push carmelo0x99/goweb:1.0
 </code></pre><p><strong>NOTE</strong>: the step above is quite important because Docker Hub doesn&rsquo;t currently build images for ARM processors.</p>
 <p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
 <h3 id="docker-swarm-finally">Docker Swarm, finally!</h3>
@@ -225,7 +225,7 @@ go7epn59usoc50f     zero2     Ready       Active                            19.0
 kz267mzscz0ol8h     zero3     Ready       Active                            19.03.8
 rv24m6fuipawylf     zero4     Ready       Active                            19.03.8
 </code></pre><p>Let&rsquo;s create a new service as follows:</p>
-<pre tabindex="0"><code>pi@ctrl $ docker service create --name goweb --replicas 3 --publish published=8888,target=8080 carmeloc/goweb:1.0
+<pre tabindex="0"><code>pi@ctrl $ docker service create --name goweb --replicas 3 --publish published=8888,target=8080 carmelo0x99/goweb:1.0
 ox51ocpvar7sx1f
 overall progress: 3 out of 3 tasks
 1/3: running   [==================================================&gt;]
@@ -235,19 +235,19 @@ verify: Service converged
 </code></pre><p>The service can be displayed and inspected as follows:</p>
 <pre tabindex="0"><code>pi@ctrl $ docker service ls
 ID              NAME           MODE                REPLICAS       IMAGE                PORTS
-htlgxrtss1ox    goweb          replicated          3/3            carmeloc/goweb:1.0   *:8888-&gt;8080/tcp
+htlgxrtss1ox    goweb          replicated          3/3            carmelo0x99/goweb:1.0   *:8888-&gt;8080/tcp
 
 pi@ctrl $ docker service ps goweb
 ID              NAME           IMAGE                NODE      DESIRED STATE     CURRENT STATE                ERROR      PORTS
-fmm9uf112y6j    goweb.1        carmeloc/goweb:1.0   zero2     Running           Running about a minute ago
-w44yl47vtnzi    goweb.2        carmeloc/goweb:1.0   ctrl      Running           Running about a minute ago
-i5ky88du3kbp    goweb.3        carmeloc/goweb:1.0   zero1     Running           Running about a minute ago
+fmm9uf112y6j    goweb.1        carmelo0x99/goweb:1.0   zero2     Running           Running about a minute ago
+w44yl47vtnzi    goweb.2        carmelo0x99/goweb:1.0   ctrl      Running           Running about a minute ago
+i5ky88du3kbp    goweb.3        carmelo0x99/goweb:1.0   zero1     Running           Running about a minute ago
 
 pi@ctrl $ docker service inspect --format=&quot;{{json .Endpoint.Spec.Ports}}&quot; goweb
 [{&quot;Protocol&quot;:&quot;tcp&quot;,&quot;TargetPort&quot;:8080,&quot;PublishedPort&quot;:8888,&quot;PublishMode&quot;:&quot;ingress&quot;}]
 
 pi@ctrl $ docker service inspect --format=&quot;{{json .Spec.TaskTemplate.ContainerSpec.Image}}&quot; goweb
-&quot;carmeloc/goweb:1.0@sha256:***&quot;
+&quot;carmelo0x99/goweb:1.0@sha256:***&quot;
 </code></pre><p>The test is, once agin, run from a different host. Notice how three replicas are responding in round-robin fashion:</p>
 <pre tabindex="0"><code>user@host $ curl http://10.0.2.207:8888/Hello\!
 This is 0801fa03baa6 running on linux/arm saying: Hello!
