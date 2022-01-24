@@ -2,7 +2,8 @@
 title: AArch64 assembly - part 0 
 date: 2022-01-24T114:41:00+01:00
 draft: false
-description: Ashort series of articles re. Assembly on ARM64
+description: A short series of articles re. Assembly on ARM64
+#series: AArch64
 tags:
 - assembly
 - arm64
@@ -36,10 +37,10 @@ After reading a few very good ones, I have taken the bold move to write my own. 
 That being said, let's start and feel free to ping me or open some _meaningful_(1) PR in case you'd like to contribute.</br>
 
 **NOTE**: The following outputs have been generated on a Raspberry Pi 4.
-Here's what my environment looks like:
+Here's what my environment looks like:</br>
 -board
 
-<pre>
+```
 $ lscpu
 Architecture:                    <b>aarch64</b>
 CPU op-mode(s):                  32-bit, 64-bit
@@ -53,11 +54,11 @@ Vendor ID:                       <b>ARM</b>
 Model:                           3
 Model name:                      <b>Cortex-A72</b>
 ...
-</pre>
+```
 
 - software
 
-<pre>
+```
 $ as --version
 GNU assembler (GNU Binutils for Debian) 2.35.2
 ...
@@ -69,7 +70,7 @@ GNU ld (GNU Binutils for Debian) 2.35.2
 $ gdb --version
 GNU gdb (Debian 10.1-1.7) 10.1.90.20210103-git
 ...
-</pre>
+```
 
 ----
 
