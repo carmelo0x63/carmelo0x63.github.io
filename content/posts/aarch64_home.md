@@ -38,9 +38,8 @@ That being said, let's start and feel free to ping me or open some _meaningful_(
 
 **NOTE**: The following outputs have been generated on a Raspberry Pi 4.
 Here's what my environment looks like:</br>
-</br>
-- board
 
+- board
 ```
 $ lscpu
 Architecture:                    <b>aarch64</b>
@@ -58,7 +57,6 @@ Model name:                      <b>Cortex-A72</b>
 ```
 
 - software
-
 ```
 $ as --version
 GNU assembler (GNU Binutils for Debian) 2.35.2
