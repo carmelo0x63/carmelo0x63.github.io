@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>AArch64 assembly - part 0 | carmelo0x99.github.io</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Ashort series of articles re. Assembly on ARM64">
+    <meta name="generator" content="Hugo 0.92.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+    
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="AArch64 assembly - part 0" />
+<meta property="og:description" content="Ashort series of articles re. Assembly on ARM64" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://carmelo0x99.github.io/posts/aarch64_home/" /><meta property="article:section" content="posts" />
+
+
+
+<meta itemprop="name" content="AArch64 assembly - part 0">
+<meta itemprop="description" content="Ashort series of articles re. Assembly on ARM64">
+
+<meta itemprop="wordCount" content="288">
+<meta itemprop="keywords" content="assembly,arm64,aarch64," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="AArch64 assembly - part 0"/>
+<meta name="twitter:description" content="Ashort series of articles re. Assembly on ARM64"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        carmelo0x99.github.io
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">AArch64 assembly - part 0</h1>
+      
+      
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="aarch64">AArch64</h2>
+<h3 id="index">Index</h3>
+<ol start="0">
+<li><a href="aarch64_home">Home</a><!-- raw HTML omitted --></li>
+<li><a href="aarch64_first">Let&rsquo;s break the ice</a><!-- raw HTML omitted --></li>
+<li><a href="aarch64_second">Under the surface</a><!-- raw HTML omitted --></li>
+<li><a href="aarch64_third">Under the microscope</a><!-- raw HTML omitted --></li>
+<li><a href="aarch64_fourth">Cross-compilation</a><!-- raw HTML omitted --></li>
+<li><a href="aarch64_resources">Resources</a><!-- raw HTML omitted --></li>
+</ol>
+<hr>
+<h3 id="background">Background</h3>
+<p>I&rsquo;m <strong>not</strong> exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here.<!-- raw HTML omitted -->
+Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment.<!-- raw HTML omitted -->
+I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic. Digging deeper should be left as an exercise to the reader.<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<em>Clerk: You&rsquo;ve got a pet halibut?</em><!-- raw HTML omitted -->
+<em>Man: Yes, I chose him out of thousands. I didn&rsquo;t like the others, they were all too flat.</em><!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+However, I have struggled to find the <strong>perfect</strong> tutorial. This one is too detailed, this one is too specific&hellip; I&rsquo;m being picky, I know, but the impression I get is that assembly is somehow for the initiated.<!-- raw HTML omitted -->
+BTW, some documents on the Internet are exceptionally good. You may want to take a look at the <a href="aarch64_resources">Resources</a> page.<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+After reading a few very good ones, I have taken the bold move to write my own. I&rsquo;ve done that with the intention to leave some notes to myself that would match my own learning process. I&rsquo;d be glad if the same notes are helpful to others.<!-- raw HTML omitted -->
+That being said, let&rsquo;s start and feel free to ping me or open some <em>meaningful</em>(1) PR in case you&rsquo;d like to contribute.<!-- raw HTML omitted --></p>
+<p><strong>NOTE</strong>: The following outputs have been generated on a Raspberry Pi 4.
+Here&rsquo;s what my environment looks like:
+-board</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul>
+<li>software</li>
+</ul>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<hr>
+<p>(1) meaningful: such as blatant errors or significant improvements. Syntax errors are also welcome but they are only accepted in multiples of three :)</p>
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/assembly" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">assembly</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/arm64" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">arm64</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/aarch64" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">aarch64</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://carmelo0x99.github.io/" >
+    &copy;  carmelo0x99.github.io 2022 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div></div>
+  </div>
+</footer>
+
+  </body>
+</html>

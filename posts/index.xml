@@ -86,5 +86,14 @@ pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:</descri
 By chance (meaning, during my endless browsing of the Twitter-verse and the Reddit-verse) I have discovered the ClusterHAT (Hardware Attached on Top) which &amp;ldquo;interfaces a (Controller) Raspberry Pi A+/B+/2/3 with 4 Raspberry Pi Zeros configured to use USB Gadget mode&amp;rdquo;. To discover more: https://clusterhat.com/.</description>
     </item>
     
+    <item>
+      <title>AArch64 assembly - part 0</title>
+      <link>http://carmelo0x99.github.io/posts/aarch64_home/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/aarch64_home/</guid>
+      <description>AArch64 Index Home Let&amp;rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Background I&amp;rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&amp;rsquo;t claim to be an expert here.Be that as it may, I&amp;rsquo;m curious, I&amp;rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment.I love tutorials on the Internet because, that&amp;rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.</description>
+    </item>
+    
   </channel>
 </rss>
