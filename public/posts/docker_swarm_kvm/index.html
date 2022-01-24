@@ -125,7 +125,7 @@ $ sudo yum upgrade -y &amp;&amp; sudo yum install -y git yum-utils device-mapper
       
     </header>
     <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="docker-swarm-on-kvm-centos">Docker Swarm on KVM (CentOS)</h2>
-<p>Fast re-run of the <a href="https://carmeloc.github.io/misc/2020/03/10/docker_swarm_clusterhat.html">previous post</a>, this time streamlined to match VM&rsquo;s on <a href="https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-server/">KVM</a>.</p>
+<p>Fast re-run of the <a href="https://carmelo0x99.github.io/docker_swarm_clusterhat.html">previous post</a>, this time streamlined to match VM&rsquo;s on <a href="https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-server/">KVM</a>.</p>
 <p>One thing I like about KVM is the ability to have <em>templates</em> and quickly install VM&rsquo;s through <a href="https://docs.centos.org/en-US/centos/install-guide/Kickstart2/">Kickstart</a>.</p>
 <p>Let&rsquo;s just assume we have two VM&rsquo;s: swarm-master and swarm-node1. Installation of Docker follows the usual <a href="https://docs.docker.com/install/linux/docker-ce/centos/">guidelines</a>:</p>
 <pre tabindex="0"><code>$ sudo yum upgrade -y &amp;&amp; sudo yum install -y git yum-utils device-mapper-persistent-data lvm2
@@ -169,7 +169,7 @@ func main() {
         panic(err)
     }
 }
-</code></pre><p>A container is automatically built by means of Docker Hub&rsquo;s <a href="https://docs.docker.com/docker-hub/builds/">automated builds</a> feature. The code is stored on <a href="https://github.com/carmeloc/GoWeb">GitHub: carmeloc/GoWeb</a> while the container can be pulled from <a href="https://hub.docker.com/repository/docker/ccarmelo/goweb">Docker Hub: ccarmelo/goweb</a>.</p>
+</code></pre><p>A container is automatically built by means of Docker Hub&rsquo;s <a href="https://docs.docker.com/docker-hub/builds/">automated builds</a> feature. The code is stored on <a href="https://github.com/carmelo0x99/GoWeb">GitHub: carmelo0x99/GoWeb</a> while the container can be pulled from <a href="https://hub.docker.com/repository/docker/ccarmelo/goweb">Docker Hub: ccarmelo/goweb</a>.</p>
 <p>Now to the juiciest part, running the app through Docker Swarm.</p>
 <pre tabindex="0"><code>$ docker service create --name=s_goweb --publish 8080:8080 --replicas=2 mellowiz/goweb:latest
 </code></pre><p>The image will be automatically pulled for us and run.</p>
