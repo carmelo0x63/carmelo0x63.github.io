@@ -38,7 +38,7 @@ That being said, let's start and feel free to ping me or open some _meaningful_(
 
 **NOTE**: The following outputs have been generated on a Raspberry Pi 4.
 Here's what my environment looks like:</br>
--board
+- board
 
 ```
 $ lscpu
