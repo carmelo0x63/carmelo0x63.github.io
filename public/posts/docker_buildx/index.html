@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Buildx: building multi-arch images | carmelo0x99.github.io</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:
+ x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello.">
+    <meta name="generator" content="Hugo 0.92.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+    
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Buildx: building multi-arch images" />
+<meta property="og:description" content="First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:
+ x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://carmelo0x99.github.io/posts/docker_buildx/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-01-29T12:00:00+01:00" />
+<meta property="article:modified_time" content="2021-01-29T12:00:00+01:00" />
+
+<meta itemprop="name" content="Buildx: building multi-arch images">
+<meta itemprop="description" content="First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:
+ x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello."><meta itemprop="datePublished" content="2021-01-29T12:00:00+01:00" />
+<meta itemprop="dateModified" content="2021-01-29T12:00:00+01:00" />
+<meta itemprop="wordCount" content="545">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Buildx: building multi-arch images"/>
+<meta name="twitter:description" content="First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:
+ x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        carmelo0x99.github.io
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Buildx: building multi-arch images</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2021-01-29T12:00:00+01:00">January 29, 2021</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><strong>First published on 2020-03-19</strong><!-- raw HTML omitted -->
+In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:</p>
+<ul>
+<li>x86_64
+<pre tabindex="0"><code>$ docker info | grep Architecture
+ Architecture: x86_64
+
+$ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq
+model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz
+</code></pre></li>
+<li>ARM
+<pre tabindex="0"><code>$ docker info | grep Architecture
+ Architecture: armv7l
+
+$ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq
+model name	: ARMv7 Processor rev 4 (v7l)
+</code></pre></li>
+</ul>
+<h3 id="on-x86_64">On x86_64</h3>
+<p><code>hello.go</code>:</p>
+<pre tabindex="0"><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+    fmt.Println(&quot;Hello, world!\n&quot;)
+}
+</code></pre><p><code>Dockerfile</code>:</p>
+<pre tabindex="0"><code>FROM golang:alpine AS builder
+RUN mkdir /app
+ADD . /app/
+WORKDIR /app
+RUN go build -o hello.go .
+
+FROM alpine
+RUN mkdir /app
+WORKDIR /app
+COPY --from=builder /app/hello.go ./
+CMD [&quot;./hello.go&quot;]
+</code></pre><pre tabindex="0"><code>user@x86_64 $ docker build -t carmelo0x99/hellogo:x86_64 .
+
+user@x86_64 $ docker run carmelo0x99/hellogo:x86_64
+Hello, world!
+</code></pre><h3 id="now-running-the-same-image-on-arm-leads-to">Now, running the same image on ARM leads to&hellip;</h3>
+<pre tabindex="0"><code>user@arm $ docker run carmelo0x99/hellogo:x86_64
+standard_init_linux.go:211: exec user process caused &quot;exec format error&quot;
+</code></pre><p>Unsurprisingly:</p>
+<pre tabindex="0"><code>user@armi $ docker inspect carmelo0x99/hellogo:x86_64 | grep Architecture
+        &quot;Architecture&quot;: &quot;amd64&quot;,
+</code></pre><h3 id="enters-buildx">Enters buildx</h3>
+<pre tabindex="0"><code>user@x86_64 $ docker buildx version
+github.com/docker/buildx v0.5.1-docker 11057da37336192bfc57d81e02359ba7ba848e4a
+
+user@x86_64 $ export DOCKER_CLI_EXPERIMENTAL=enabled
+
+&lt;!--user@x86_64 $ docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
+Unable to find image 'docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64' locally
+a7996909642ee92942dcd6cff44b9b95f08dad64: Pulling from docker/binfmt
+5d6ca6c8ba77: Pull complete
+b26a8e2c75fc: Pull complete
+3436361ddd98: Pull complete
+Digest: sha256:758ca0563f371b384cfd67b6590b5be2dc024fef45bc14a050ae104f0caad14e
+Status: Downloaded newer image for docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64--&gt;
+
+user@x86_64 $ docker buildx create --use --name builderx
+builderx
+
+user@x86_64 $ docker buildx ls
+NAME/NODE   DRIVER/ENDPOINT             STATUS   PLATFORMS
+builderx *  docker-container
+  builderx0 unix:///var/run/docker.sock inactive
+default     docker
+  default   default                     running  linux/amd64, linux/386
+</code></pre><h3 id="load-generates-an-error"><code>load</code> generates an error</h3>
+<pre tabindex="0"><code>user@x86_64 $ docker buildx build -t carmelo0x99/hellogo:2.0 --platform linux/amd64,linux/386,linux/arm/v7,linux/arm/v6 --load .
+...
+ =&gt; ERROR exporting to oci image format	0.0s
+------
+ &gt; exporting to oci image format:
+------
+failed to solve: rpc error: code = Unknown desc = docker exporter does not currently support exporting manifest lists
+</code></pre><h3 id="push-works-instead"><code>push</code> works instead</h3>
+<pre tabindex="0"><code>user@x86_64 $ docker buildx build -t carmelo0x99/hellogo:2.0 --platform linux/amd64,linux/386,linux/arm/v7,linux/arm/v6 --push .
+[+] Building 144.5s (51/51) FINISHED
+ =&gt; [internal] booting buildkit                                                        16.2s
+ =&gt; =&gt; pulling image moby/buildkit:buildx-stable-1                                     14.8s
+ =&gt; =&gt; creating container buildx_buildkit_builderx0                                     1.4s
+ =&gt; [internal] load build definition from Dockerfile                                    0.1s
+ =&gt; =&gt; transferring dockerfile: 230B                                                    0.0s
+ =&gt; [internal] load .dockerignore                                                       0.2s
+ =&gt; =&gt; transferring context: 2B0.0s
+ =&gt; [linux/amd64 internal] load metadata for docker.io/library/golang:alpine            6.8s
+ =&gt; [linux/amd64 internal] load metadata for docker.io/library/alpine:latest            6.8s
+...
+=&gt; =&gt; pushing layers                                                                   10.3s
+ =&gt; =&gt; pushing manifest for docker.io/carmelo0x99/goweb:multiarch                       2.4s
+ =&gt; [auth] carmelo0x99/goweb:pull,push token for registry-1.docker.io                   0.0s
+</code></pre><p>Problem is we need to pull the image back from Docker Hub.</p>
+<pre tabindex="0"><code>user@x86_64 $ docker pull carmelo0x99/hellogo:2.0
+2.0: Pulling from carmelo0x99/hellogo
+188c0c94c7c5: Already exists
+7a30352f7640: Pull complete
+7eb7155945d7: Pull complete
+cc4e0f765d0b: Pull complete
+Digest: sha256:ee0ccf88180d071eb242814233a32aae78ca1c5b1281742fff80113aed5cf864
+Status: Downloaded newer image for carmelo0x99/hellogo:2.0
+docker.io/carmelo0x99/hellogo:2.0
+</code></pre><p>It&rsquo;s interesting to notice how the image <em>embeds</em> several different flavours</p>
+<pre tabindex="0"><code>user@x86_64 $ docker buildx imagetools inspect carmelo0x99/hellogo:2.0
+Name:      docker.io/carmelo0x99/hellogo:2.0
+MediaType: application/vnd.docker.distribution.manifest.list.v2+json
+Digest:    sha256:ee0ccf88180d071eb242814233a32aae78ca1c5b1281742fff80113aed5cf864
+
+Manifests:
+  Name:      docker.io/carmelo0x99/hellogo:2.0@sha256:baf37cc593cf0818a7afeb1059b7b7d9324232a0f31e17aaeb80b2c73f2a56c5
+  MediaType: application/vnd.docker.distribution.manifest.v2+json
+  Platform:  linux/amd64
+
+  Name:      docker.io/carmelo0x99/hellogo:2.0@sha256:b8f62e3da564e65a67b737c6230b22f2bff7279f3f89c5e7677466f9b8f4ebb6
+  MediaType: application/vnd.docker.distribution.manifest.v2+json
+  Platform:  linux/386
+
+  Name:      docker.io/carmelo0x99/hellogo:2.0@sha256:784480a45d79d3812608b9dd626909a863f72f307cf16115d9ee94c95db9da5e
+  MediaType: application/vnd.docker.distribution.manifest.v2+json
+  Platform:  linux/arm/v7
+
+  Name:      docker.io/carmelo0x99/hellogo:2.0@sha256:74d0ee688f789968ae967ddd3aaa3aee71102fc5ed0d5b1315cc4ece56c5b9ef
+  MediaType: application/vnd.docker.distribution.manifest.v2+json
+  Platform:  linux/arm/v6
+</code></pre><h3 id="on-arm-after-buildx">on ARM after buildx</h3>
+<p>We&rsquo;re good to go now. Same image we&rsquo;d run on AMD/Intel/x86_64 runs <strong>seamlessly</strong> on ARM.</p>
+<pre tabindex="0"><code>user@arm $ docker pull carmelo0x99/hellogo:2.0
+2.0: Pulling from carmelo0x99/hellogo
+5f2023fd85a4: Pull complete
+807a035978f6: Pull complete
+5ca0ae22a091: Pull complete
+8ca028498186: Pull complete
+Digest: sha256:ee0ccf88180d071eb242814233a32aae78ca1c5b1281742fff80113aed5cf864
+Status: Downloaded newer image for carmelo0x99/hellogo:2.0
+docker.io/carmelo0x99/hellogo:2.0
+
+user@arm $ docker run carmelo0x99/hellogo:2.0
+Hello, world!
+</code></pre><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://carmelo0x99.github.io/" >
+    &copy;  carmelo0x99.github.io 2022 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div></div>
+  </div>
+</footer>
+
+  </body>
+</html>

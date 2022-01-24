@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>carmelo0x99.github.io</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="">
+    <meta name="generator" content="Hugo 0.92.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+    
+    
+      
+
+    
+
+    
+    
+      <link href="/posts/index.xml" rel="alternate" type="application/rss+xml" title="carmelo0x99.github.io" />
+      <link href="/posts/index.xml" rel="feed" type="application/rss+xml" title="carmelo0x99.github.io" />
+      
+    
+    
+    <meta property="og:title" content="Posts" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="http://carmelo0x99.github.io/posts/" />
+
+<meta itemprop="name" content="Posts">
+<meta itemprop="description" content=""><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Posts"/>
+<meta name="twitter:description" content=""/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+
+  <header>
+    <div class="pb3-m pb6-l bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        carmelo0x99.github.io
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+    </div>
+  </div>
+</nav>
+
+      <div class="tc-l pv3 ph3 ph4-ns">
+        <h1 class="f2 f-subheadline-l fw2 light-silver mb0 lh-title">
+          Posts
+        </h1>
+        
+      </div>
+    </div>
+  </header>
+
+
+    <main class="pb7" role="main">
+      
+  <article class="pa3 pa4-ns nested-copy-line-height nested-img">
+    <section class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy mid-gray"></section>
+    <section class="flex-ns flex-wrap justify-around mt5">
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/docker_buildx/" class="link black dim">
+        Buildx: building multi-arch images
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:
+ x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello.
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/breaking_the_ice_with_shodan/" class="link black dim">
+        Breaking the ice with Shodan
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Shodan.io Shodan defines itself as the search engine for Internet-connected devices. Replace Internet-connected devices with webcams, refrigerators, power plants&hellip; Raspberry Pis&hellip; you-name-it.
+I&rsquo;d always been curious about Shodan but not that curious to break into someone else&rsquo;s webcam, not my cup of tea. What changed my mind? In the last few days I&rsquo;ve noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I&rsquo;d exposed to the Internet:
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/repl-on-premise/" class="link black dim">
+        Running a REPL on-premise
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Nodebook Nodebook is a multi-language REPL offering both a web UI and a CLI interface. Github: https://github.com/netgusto/nodebook
+NOTE: REPL: Read-Eval-Print Loop
+Set up OS (e.g. CentOS 7) sudo sed -i &quot;s/^#PermitRootLogin yes/PermitRootLogin prohibit-password/&quot; /etc/ssh/sshd_config sudo sed -i &quot;s/^#UseDNS yes/UseDNS no/&quot; /etc/ssh/sshd_config sudo systemctl restart sshd sudo firewall-cmd --permanent --add-port=9001/tcp &amp;&amp; sudo firewall-cmd --reload IMPORTANT: be aware of any security implcations when running such an application. There&rsquo;s always a chance to run malicious code that can harm the guest OS.
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/docker_in_depth/" class="link black dim">
+        Docker in depth: namespaces, cgroups, images from scratch
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      INDEX
+ Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
+user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; ccarmelo/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+Likewise, docker history can show how the image had been built:
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/docker_swarm_kvm/" class="link black dim">
+        Docker Swarm on KVM (CentOS)
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      Docker Swarm on KVM (CentOS) Fast re-run of the previous post, this time streamlined to match VM&rsquo;s on KVM.
+One thing I like about KVM is the ability to have templates and quickly install VM&rsquo;s through Kickstart.
+Let&rsquo;s just assume we have two VM&rsquo;s: swarm-master and swarm-node1. Installation of Docker follows the usual guidelines:
+$ sudo yum upgrade -y &amp;&amp; sudo yum install -y git yum-utils device-mapper-persistent-data lvm2 $ sudo yum-config-manager --add-repo https://download.
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/docker_swarm_clusterhat/" class="link black dim">
+        Docker Swarm on ClusterHAT
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      INDEX
+ The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally!  NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
+Installation of ClusterHAT has been described in a previous post.
+The basics: hardware architecture Controller:
+pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
+      <a href="/posts/raspi_clusterhat_install/" class="link black dim">
+        Raspberry PI: install ClusterHAT software
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      I&rsquo;ve had these nice Raspberry Pi Zero (vanilla, not &lsquo;W&rsquo;) lying around for quite some time and I wanted to give them a purpose in life.
+By chance (meaning, during my endless browsing of the Twitter-verse and the Reddit-verse) I have discovered the ClusterHAT (Hardware Attached on Top) which &ldquo;interfaces a (Controller) Raspberry Pi A+/B+/2/3 with 4 Raspberry Pi Zeros configured to use USB Gadget mode&rdquo;. To discover more: https://clusterhat.com/.
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+    </section></article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://carmelo0x99.github.io/" >
+    &copy;  carmelo0x99.github.io 2022 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div></div>
+  </div>
+</footer>
+
+  </body>
+</html>

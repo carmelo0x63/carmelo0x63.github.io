@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Raspberry PI: install ClusterHAT software | carmelo0x99.github.io</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="I&rsquo;ve had these nice Raspberry Pi Zero (vanilla, not &lsquo;W&rsquo;) lying around for quite some time and I wanted to give them a purpose in life.
+By chance (meaning, during my endless browsing of the Twitter-verse and the Reddit-verse) I have discovered the ClusterHAT (Hardware Attached on Top) which &ldquo;interfaces a (Controller) Raspberry Pi A&#43;/B&#43;/2/3 with 4 Raspberry Pi Zeros configured to use USB Gadget mode&rdquo;. To discover more: https://clusterhat.com/.">
+    <meta name="generator" content="Hugo 0.92.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+    
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Raspberry PI: install ClusterHAT software" />
+<meta property="og:description" content="I&rsquo;ve had these nice Raspberry Pi Zero (vanilla, not &lsquo;W&rsquo;) lying around for quite some time and I wanted to give them a purpose in life.
+By chance (meaning, during my endless browsing of the Twitter-verse and the Reddit-verse) I have discovered the ClusterHAT (Hardware Attached on Top) which &ldquo;interfaces a (Controller) Raspberry Pi A&#43;/B&#43;/2/3 with 4 Raspberry Pi Zeros configured to use USB Gadget mode&rdquo;. To discover more: https://clusterhat.com/." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://carmelo0x99.github.io/posts/raspi_clusterhat_install/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-09T12:00:00+01:00" />
+<meta property="article:modified_time" content="2020-03-09T12:00:00+01:00" />
+
+<meta itemprop="name" content="Raspberry PI: install ClusterHAT software">
+<meta itemprop="description" content="I&rsquo;ve had these nice Raspberry Pi Zero (vanilla, not &lsquo;W&rsquo;) lying around for quite some time and I wanted to give them a purpose in life.
+By chance (meaning, during my endless browsing of the Twitter-verse and the Reddit-verse) I have discovered the ClusterHAT (Hardware Attached on Top) which &ldquo;interfaces a (Controller) Raspberry Pi A&#43;/B&#43;/2/3 with 4 Raspberry Pi Zeros configured to use USB Gadget mode&rdquo;. To discover more: https://clusterhat.com/."><meta itemprop="datePublished" content="2020-03-09T12:00:00+01:00" />
+<meta itemprop="dateModified" content="2020-03-09T12:00:00+01:00" />
+<meta itemprop="wordCount" content="461">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Raspberry PI: install ClusterHAT software"/>
+<meta name="twitter:description" content="I&rsquo;ve had these nice Raspberry Pi Zero (vanilla, not &lsquo;W&rsquo;) lying around for quite some time and I wanted to give them a purpose in life.
+By chance (meaning, during my endless browsing of the Twitter-verse and the Reddit-verse) I have discovered the ClusterHAT (Hardware Attached on Top) which &ldquo;interfaces a (Controller) Raspberry Pi A&#43;/B&#43;/2/3 with 4 Raspberry Pi Zeros configured to use USB Gadget mode&rdquo;. To discover more: https://clusterhat.com/."/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        carmelo0x99.github.io
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Raspberry PI: install ClusterHAT software</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-03-09T12:00:00+01:00">March 9, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>I&rsquo;ve had these nice Raspberry Pi Zero (vanilla, not &lsquo;W&rsquo;) lying around for quite some time and I wanted to give them a purpose in life.</p>
+<p>By chance (meaning, during my <em>endless browsing of the Twitter-verse and the Reddit-verse</em>) I have discovered the ClusterHAT (<strong>H</strong>ardware <strong>A</strong>ttached on <strong>T</strong>op) which &ldquo;<em>interfaces a (Controller) Raspberry Pi A+/B+/2/3 with 4 Raspberry Pi Zeros configured to use USB Gadget mode</em>&rdquo;. To discover more: <a href="https://clusterhat.com/">https://clusterhat.com/</a>.</p>
+<p>After installing, breaking, fixing, re-installing multiple times I&rsquo;ve found myself with a nice-and-cheap Docker Swarm cluster, and a bit of knowledge on Raspberry Pi + ClusterHAT + Docker that I&rsquo;m happy to share.</p>
+<p>This is the (short) story of how I&rsquo;ve put them all to work together.</p>
+<h3 id="on-any-available-computers-write-the-images-onto-the-sds-for-instance-on-a-nix-machine">On any available computers, write the images onto the SDs. For instance, on a *nix machine:</h3>
+<p><strong>Before</strong> starting, clean up the SD card by removing any existing partitions.</p>
+<ul>
+<li><code>&lt;type&gt;</code> = CBRIDGE, CNAT, p[N]-p4<!-- raw HTML omitted --></li>
+<li><code>&lt;device&gt;</code> = e.g /dev/sdb, /dev/mmcblk0&hellip;<!-- raw HTML omitted -->
+<strong>NOTE</strong>: based on &ldquo;Stretch&rdquo; hence &ldquo;2019-04-08&rdquo;</li>
+</ul>
+<pre tabindex="0"><code>$ sudo dd if=ClusterCTRL-2019-04-08-lite-4-&lt;type&gt;.img of=/dev/&lt;device&gt; bs=1M
+</code></pre><p>Before unmounting the SDs, run the following:</p>
+<pre tabindex="0"><code>$ touch /media/&lt;your-username&gt;/boot/ssh
+</code></pre><h3 id="static-address-cbridgecnatzero">Static address [CBRIDGE|CNAT|Zero]</h3>
+<pre tabindex="0"><code>$ sudo vi /media/&lt;your-username&gt;/rootfs/etc/dhcpcd.conf
+interface [br0|eth0|usb0]
+static ip_address=&lt;ip_address&gt;/24
+static routers=&lt;gateway&gt;
+static domain_name_servers=&lt;gateway&gt; &lt;server1&gt; &lt;server2&gt;
+</code></pre><h3 id="either-manually-or-through-raspi-config">Either manually or through raspi-config</h3>
+<p>Edit: password, hostname, timezone, SSH</p>
+<h3 id="additional-steps-on-controller">Additional steps on Controller</h3>
+<pre tabindex="0"><code>$ ssh-keygen -t rsa
+
+$ for idx in {1..4}; do ssh-copy-id pi@p${idx}.local; done
+</code></pre><p>Also, set <code>vi</code> as the default editor:</p>
+<pre tabindex="0"><code>$ echo 3 | sudo update-alternatives --config editor
+</code></pre><h3 id="using-clusterhat">Using ClusterHAT</h3>
+<pre tabindex="0"><code>$ clusterhat status
+clusterhat:1
+clusterctrl:False
+maxpi:4
+...
+p1:0
+p2:0
+p3:0
+p4:0
+
+$ clusterhat on
+
+$ clusterhat status
+clusterhat:1
+clusterctrl:False
+maxpi:4
+...
+p1:1
+p2:1
+p3:1
+p4:1
+</code></pre><h4 id="serial-connection-useful-to-troubleshoot-ssh-issues">Serial connection (useful to troubleshoot SSH issues)</h4>
+<pre tabindex="0"><code>$ minicom p[N]
+ p[N] login: pi
+ Password:
+ Last login: Tue Sep 24 15:37:25 CEST 2019 from xxx.xxx.xxx.xxx on pts/0
+ Linux p[N] 4.19.66+ #1253 Thu Aug 15 11:37:30 BST 2019 armv6l
+...
+</code></pre><p><strong>NOTE</strong>: to quit Minicom use <code>CTRL-A-X</code></p>
+<h4 id="clusterctrl-all-commands">clusterctrl: all commands</h4>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ clusterctrl on</code></td>
+<td>Turn power to all Pi Zero on</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl off</code></td>
+<td>Turn power to all Pi Zero off</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl on p1</code></td>
+<td>Turn power on to Pi Zero in slot P1</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl on p1 p3 p4</code></td>
+<td>Turn power to Pi Zeros in slot P1, P3 and P4 on</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl off p2 p3</code></td>
+<td>Turn power off to Pi Zeros in slots P2 and P3</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl alert on</code></td>
+<td>Turns on ALERT LED</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl alert off</code></td>
+<td>Turns off ALERT LED</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl hub on</code></td>
+<td>Turns on USB hub (default)</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl hub off</code></td>
+<td>Turns off USB hub</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl led on</code></td>
+<td>Enables Power &amp; P1-P4 LED on Cluster HAT (default)</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl led off</code></td>
+<td>Disables Power &amp; P1-P4 LED on Cluster HAT (does not disable ALERT LED)</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl wp on</code></td>
+<td>Write protects HAT EEPROM</td>
+</tr>
+<tr>
+<td><code>$ clusterctrl wp off</code></td>
+<td>Disables EEPROM write protect (only needed for updates)</td>
+</tr>
+</tbody>
+</table>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://carmelo0x99.github.io/" >
+    &copy;  carmelo0x99.github.io 2022 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div></div>
+  </div>
+</footer>
+
+  </body>
+</html>

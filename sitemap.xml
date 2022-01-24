@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://carmelo0x99.github.io/posts/docker_buildx/</loc>
+    <lastmod>2021-01-29T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/</loc>
+    <lastmod>2021-01-29T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/posts/</loc>
+    <lastmod>2021-01-29T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/posts/breaking_the_ice_with_shodan/</loc>
+    <lastmod>2020-04-01T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/posts/repl-on-premise/</loc>
+    <lastmod>2020-03-29T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/posts/docker_in_depth/</loc>
+    <lastmod>2020-03-20T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/posts/docker_swarm_kvm/</loc>
+    <lastmod>2020-03-13T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/posts/docker_swarm_clusterhat/</loc>
+    <lastmod>2020-03-10T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/posts/raspi_clusterhat_install/</loc>
+    <lastmod>2020-03-09T12:00:00+01:00</lastmod>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/categories/</loc>
+  </url><url>
+    <loc>http://carmelo0x99.github.io/tags/</loc>
+  </url>
+</urlset>

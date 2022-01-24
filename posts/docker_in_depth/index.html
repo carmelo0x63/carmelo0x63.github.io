@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Docker in depth: namespaces, cgroups, images from scratch | carmelo0x99.github.io</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="INDEX
+ Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
+user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; ccarmelo/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+Likewise, docker history can show how the image had been built:">
+    <meta name="generator" content="Hugo 0.92.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+    
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Docker in depth: namespaces, cgroups, images from scratch" />
+<meta property="og:description" content="INDEX
+ Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
+user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; ccarmelo/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+Likewise, docker history can show how the image had been built:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://carmelo0x99.github.io/posts/docker_in_depth/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-20T12:00:00+01:00" />
+<meta property="article:modified_time" content="2020-03-20T12:00:00+01:00" />
+
+<meta itemprop="name" content="Docker in depth: namespaces, cgroups, images from scratch">
+<meta itemprop="description" content="INDEX
+ Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
+user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; ccarmelo/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+Likewise, docker history can show how the image had been built:"><meta itemprop="datePublished" content="2020-03-20T12:00:00+01:00" />
+<meta itemprop="dateModified" content="2020-03-20T12:00:00+01:00" />
+<meta itemprop="wordCount" content="997">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Docker in depth: namespaces, cgroups, images from scratch"/>
+<meta name="twitter:description" content="INDEX
+ Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
+user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; ccarmelo/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+Likewise, docker history can show how the image had been built:"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        carmelo0x99.github.io
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Docker in depth: namespaces, cgroups, images from scratch</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-03-20T12:00:00+01:00">March 20, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>INDEX</p>
+<ul>
+<li><a href="#images">Images and containers</a></li>
+<li><a href="#ns">Namespaces</a></li>
+<li><a href="#cg">Cgroups</a></li>
+<li><a href="#scratch">Images from scratch</a></li>
+</ul>
+<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="images-and-containers">Images and containers</h3>
+<p>Let&rsquo;s take a closer look at what&rsquo;s in an image.</p>
+<p><strong>NOTE</strong>: I&rsquo;m filtering out lots of info by using Docker&rsquo;s <a href="https://docs.docker.com/config/formatting/">format command</a>.
+{% raw %}</p>
+<pre tabindex="0"><code>user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; ccarmelo/goweb:latest
+[&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;,
+ &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;,
+ &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;]
+</code></pre><p>{% endraw %}
+One can see that, for instance, the image above is made up of three different layers.</p>
+<p>Likewise, <code>docker history</code> can show how the image had been built:</p>
+<pre tabindex="0"><code>user@laptop $ docker history ccarmelo/goweb:latest
+IMAGE          CREATED        CREATED BY                                      SIZE    COMMENT
+ccf5bf7f5979   7 days ago     /bin/sh -c #(nop)  CMD [&quot;./main.go&quot;]            0B
+&lt;missing&gt;      7 days ago     /bin/sh -c #(nop) COPY file:fe2451faf4c4dbce…   7.47MB
+&lt;missing&gt;      7 days ago     /bin/sh -c #(nop) WORKDIR /app                  0B
+&lt;missing&gt;      7 days ago     /bin/sh -c mkdir /app                           0B
+&lt;missing&gt;      2 months ago   /bin/sh -c #(nop)  CMD [&quot;/bin/sh&quot;]              0B
+&lt;missing&gt;      2 months ago   /bin/sh -c #(nop) ADD file:e69d441d729412d24…   5.59MB
+</code></pre><p>A container runs off the image but is an entirely different object.</p>
+<pre tabindex="0"><code>user@laptop $ docker container ls
+CONTAINER ID   IMAGE                   COMMAND       CREATED          STATUS          PORTS   NAMES
+66df9337ad51   ccarmelo/goweb:latest   &quot;./main.go&quot;   14 minutes ago   Up 14 minutes           beautiful_williamson
+</code></pre><p>In reality, the application is obviously running on our host, we can see how it&rsquo;s identified by its PID:</p>
+<pre tabindex="0"><code>user@laptop $ ps -ef | grep main.go | grep -v grep
+root      3993  3970  0 17:38 ?        00:00:00 ./main.go
+
+user@laptop $ docker inspect 66df9337ad51 | grep -i pid
+            &quot;Pid&quot;: 3993,
+            &quot;PidMode&quot;: &quot;&quot;,
+            &quot;PidsLimit&quot;: null,
+</code></pre><p>We can also connect to the running container. From within, it looks as if we&rsquo;re in a totally separate environment:</p>
+<pre tabindex="0"><code>user@laptop $ docker exec -it 66df sh
+
+/app # hostname
+66df9337ad51
+
+/app # ip a
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+6: eth0@if7: &lt;BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN&gt; mtu 1500 qdisc noqueue state UP
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
+       valid_lft forever preferred_lft forever
+
+/app # ls
+main.go
+
+/app # ls /
+app    bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var
+
+/app # exit
+</code></pre><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="namespaces">Namespaces</h3>
+<p>Docker uses a technology called <em>namespaces</em> to provide the container with a layer of isolation. A few examples:</p>
+<ul>
+<li><em>pid</em> namespace: Process isolation (PID: Process ID).</li>
+<li><em>net</em> namespace: Managing network interfaces (NET: Networking).</li>
+<li><em>ipc</em> namespace: Managing access to IPC resources (IPC: InterProcess Communication).</li>
+<li><em>mnt</em> namespace: Managing filesystem mount points (MNT: Mount).</li>
+<li><em>uts</em> namespace: Isolating kernel and version identifiers. (UTS: Unix Timesharing System).</li>
+</ul>
+<p>Let&rsquo;s analyze namespaces by, for instance, inheriting the <em>hostname</em>:</p>
+<pre tabindex="0"><code>user@laptop $ sudo nsenter --target 3993 --uts
+root@66df9337ad51:~# hostname
+66df9337ad51
+
+root@66df9337ad51:~# ip link
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: enp14s0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc fq_codel state DOWN mode DEFAULT group default qlen 1000
+    link/ether 30:f9:ed:fe:b1:28 brd ff:ff:ff:ff:ff:ff
+3: wlp2s0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DORMANT group default qlen 1000
+    link/ether 08:ed:b9:ce:e2:cf brd ff:ff:ff:ff:ff:ff
+4: docker_gwbridge: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN mode DEFAULT group default
+    link/ether 02:42:51:dc:ce:e9 brd ff:ff:ff:ff:ff:ff
+5: docker0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default
+    link/ether 02:42:7c:5c:a8:3e brd ff:ff:ff:ff:ff:ff
+7: veth30cdacf@if6: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
+    link/ether 52:6a:51:42:8f:b8 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+9: veth52187b1@if8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue master docker0 state UP mode DEFAULT group default
+    link/ether 82:b7:dc:96:1b:58 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+
+root@66df9337ad51:~# exit
+</code></pre><p>Let&rsquo;s now try something different and borrow the container&rsquo;s network settings:</p>
+<pre tabindex="0"><code>user@laptop $ sudo nsenter --target 3993 --net
+
+root@laptop:~# hostname
+laptop
+
+root@laptop:~# ip link
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+6: eth0@if7: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc noqueue state UP mode DEFAULT group default
+    link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+
+root@laptop:~# exit
+</code></pre><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="cgroups">Cgroups</h3>
+<p>Docker Engine on Linux also relies on another technology called <em>control groups</em> (or <em>cgroups</em>). A cgroup limits an application to a specific set of resources. Control groups allow Docker Engine to share available hardware resources to containers and optionally enforce limits and constraints.</p>
+<p>Let&rsquo;s see an example of how memory can be limited for a container.</p>
+<pre tabindex="0"><code>user@laptop $ cat /proc/3993/cgroup
+12:net_cls,net_prio:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+11:memory:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+10:pids:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+9:devices:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+8:cpuset:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+7:blkio:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+6:hugetlb:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+5:rdma:/
+4:perf_event:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+3:freezer:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+2:cpu,cpuacct:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+1:name=systemd:/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86
+0::/system.slice/containerd.service
+
+user@laptop $ cat /sys/fs/cgroup/memory/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86/memory.limit_in_bytes
+9223372036854771712
+
+user@laptop $ docker run -d --memory 4m --name test4m ccarmelo/goweb:latest
+WARNING: Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.
+051f309ee14220936dd6a746341cde687c94bca45108a9413ba7fcc1ee323520
+
+user@laptop $ cat /sys/fs/cgroup/memory/docker/051f309ee14220936dd6a746341cde687c94bca45108a9413ba7fcc1ee323520/memory.limit_in_bytes
+4194304
+</code></pre><p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
+<h3 id="images-from-scratch">Images from scratch</h3>
+<p>So far we&rsquo;ve always started from pre-built images whose contents was unknown until we&rsquo;d run them. There&rsquo;s an alternative way to building custom images and that&rsquo;s starting from <em>scratch</em>.</p>
+<p>This approach entails downloading the filesystem first, then adding our customizations on top of it. Alpine is a very convenient distribution since it&rsquo;s mini root filesystem is very limited in size:</p>
+<pre tabindex="0"><code>user@laptop $ curl -O http://dl-cdn.alpinelinux.org/alpine/v3.11/releases/x86_64/alpine-minirootfs-3.11.5-x86_64.tar.gz
+
+user@laptop $ ls -lh
+total 2.7M
+-rw-rw-r-- 1 user user 2.6M Mar 25 11:10 alpine-minirootfs-3.11.5-x86_64.tar.gz
+</code></pre><p>Let&rsquo;s build an image based on it and add our own customization. We&rsquo;ll need the following files:
+<code>Dockerfile</code>:</p>
+<pre tabindex="0"><code>FROM scratch
+ADD alpine-minirootfs-3.11.5-x86_64.tar.gz /
+COPY os-release /etc/
+CMD [&quot;/bin/sh&quot;]
+</code></pre><p><code>os-release</code>:</p>
+<pre tabindex="0"><code>NAME=&quot;My cool-and-small image&quot;
+ID=alpine
+VERSION_ID=1.0
+PRETTY_NAME=&quot;Based on Alpine Linux v3.11&quot;
+HOME_URL=&quot;https://alpinelinux.org/&quot;
+BUG_REPORT_URL=&quot;https://bugs.alpinelinux.org/&quot;
+</code></pre><p>We can start the build process as follows now:</p>
+<pre tabindex="0"><code>user@laptop docker build -t ccarmelo/scratch:1.0 .
+Sending build context to Docker daemon  2.728MB
+Step 1/4 : FROM scratch
+ ---&gt;
+Step 2/4 : ADD alpine-minirootfs-3.11.5-x86_64.tar.gz /
+ ---&gt; 5beb49a29512
+Step 3/4 : COPY os-release /etc/
+ ---&gt; 034d3918f9ac
+Step 4/4 : CMD [&quot;/bin/sh&quot;]
+ ---&gt; Running in a494bc027971
+Removing intermediate container a494bc027971
+ ---&gt; 786e178aee95
+Successfully built 786e178aee95
+Successfully tagged ccarmelo/scratch:1.0
+</code></pre><p>One thing to notice is how small our image is:</p>
+<pre tabindex="0"><code>user@laptop docker image ls
+REPOSITORY          TAG                                        IMAGE ID            CREATED             SIZE
+ccarmelo/scratch    1.0                                        786e178aee95        14 seconds ago      5.6MB
+...
+</code></pre><p>Next and last step is to verify that the image is behaving as intended:</p>
+<pre tabindex="0"><code>user@laptop docker run -it ccarmelo/scratch:1.0 sh
+/ # cat /etc/os-release
+NAME=&quot;My cool-and-small image&quot;
+ID=alpine
+VERSION_ID=1.0
+PRETTY_NAME=&quot;Based on Alpine Linux v3.11&quot;
+HOME_URL=&quot;https://alpinelinux.org/&quot;
+BUG_REPORT_URL=&quot;https://bugs.alpinelinux.org/&quot;
+</code></pre><ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://carmelo0x99.github.io/" >
+    &copy;  carmelo0x99.github.io 2022 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div></div>
+  </div>
+</footer>
+
+  </body>
+</html>

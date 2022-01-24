@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>Breaking the ice with Shodan | carmelo0x99.github.io</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Shodan.io Shodan defines itself as the search engine for Internet-connected devices. Replace Internet-connected devices with webcams, refrigerators, power plants&hellip; Raspberry Pis&hellip; you-name-it.
+I&rsquo;d always been curious about Shodan but not that curious to break into someone else&rsquo;s webcam, not my cup of tea. What changed my mind? In the last few days I&rsquo;ve noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I&rsquo;d exposed to the Internet:">
+    <meta name="generator" content="Hugo 0.92.0" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+    
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="Breaking the ice with Shodan" />
+<meta property="og:description" content="Shodan.io Shodan defines itself as the search engine for Internet-connected devices. Replace Internet-connected devices with webcams, refrigerators, power plants&hellip; Raspberry Pis&hellip; you-name-it.
+I&rsquo;d always been curious about Shodan but not that curious to break into someone else&rsquo;s webcam, not my cup of tea. What changed my mind? In the last few days I&rsquo;ve noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I&rsquo;d exposed to the Internet:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://carmelo0x99.github.io/posts/breaking_the_ice_with_shodan/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-04-01T12:00:00+01:00" />
+<meta property="article:modified_time" content="2020-04-01T12:00:00+01:00" />
+
+<meta itemprop="name" content="Breaking the ice with Shodan">
+<meta itemprop="description" content="Shodan.io Shodan defines itself as the search engine for Internet-connected devices. Replace Internet-connected devices with webcams, refrigerators, power plants&hellip; Raspberry Pis&hellip; you-name-it.
+I&rsquo;d always been curious about Shodan but not that curious to break into someone else&rsquo;s webcam, not my cup of tea. What changed my mind? In the last few days I&rsquo;ve noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I&rsquo;d exposed to the Internet:"><meta itemprop="datePublished" content="2020-04-01T12:00:00+01:00" />
+<meta itemprop="dateModified" content="2020-04-01T12:00:00+01:00" />
+<meta itemprop="wordCount" content="585">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Breaking the ice with Shodan"/>
+<meta name="twitter:description" content="Shodan.io Shodan defines itself as the search engine for Internet-connected devices. Replace Internet-connected devices with webcams, refrigerators, power plants&hellip; Raspberry Pis&hellip; you-name-it.
+I&rsquo;d always been curious about Shodan but not that curious to break into someone else&rsquo;s webcam, not my cup of tea. What changed my mind? In the last few days I&rsquo;ve noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I&rsquo;d exposed to the Internet:"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        carmelo0x99.github.io
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">Breaking the ice with Shodan</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2020-04-01T12:00:00+01:00">April 1, 2020</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h3 id="shodanio">Shodan.io</h3>
+<p>Shodan defines itself as the search engine for <em>Internet-connected devices</em>. Replace <em>Internet-connected devices</em> with webcams, refrigerators, power plants&hellip; Raspberry Pis&hellip; you-name-it.</p>
+<p>I&rsquo;d always been curious about Shodan but not that curious to break into someone else&rsquo;s webcam, not my cup of tea. What changed my mind?
+In the last few days I&rsquo;ve noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I&rsquo;d exposed to the Internet:</p>
+<pre tabindex="0"><code>Mar 31 15:50:38 &lt;server's name&gt; sshd[11391]: Invalid user miguel from 122.51.114.213 port 48438
+Mar 31 15:50:38 &lt;server's name&gt; sshd[11391]: pam_unix(sshd:auth): check pass; user unknown
+Mar 31 15:50:38 &lt;server's name&gt; sshd[11391]: pam_unix(sshd:auth): authentication failure; logname= uid=0 euid=0 tty=ssh ruser= rhost=122.51.114.213
+Mar 31 15:50:41 &lt;server's name&gt; sshd[11391]: Failed password for invalid user miguel from 122.51.114.213 port 48438 ssh2
+Mar 31 15:50:42 &lt;server's name&gt; sshd[11391]: Received disconnect from 122.51.114.213 port 48438:11: Bye Bye [preauth]
+Mar 31 15:50:42 &lt;server's name&gt; sshd[11391]: Disconnected from invalid user miguel 122.51.114.213 port 48438 [preauth]
+</code></pre><h4 id="whos-miguel">Who&rsquo;s Miguel?</h4>
+<p>Do not be fooled by the names being used for the login attempts. There are no <em>miguel</em> or <em>xiaobing</em> or <em>p@sswd@123456</em> behind the attack. More realistically, someone has put together a list of most common user names with a list of most commonly used passwords and is looping through the two of them.
+Worrisome? A bit.
+Dangerous? Possibly.
+Annoying? YES!</p>
+<p>Apart from strongly recommending some serious hardening to your Internet-facing devices, this has prompted me to get a bit more familiar with Shodan and take a look at myself <em>from the other side</em>. A bit like those <em>public profile</em> pages so common on social websites.
+What did I do? I searched for myself on Shodan to check what kind of footprints I&rsquo;d be leaving on the Internet.</p>
+<p>To get familiar with Shodan and it&rsquo;s GUI I recommend reading the floowing article by <a href="https://danielmiessler.com/">Daniel Miessler</a>: <a href="https://danielmiessler.com/study/shodan/">A Shodan Tutorial and Primer</a>.
+You can find all sort of things in there. Nice huh?</p>
+<h4 id="where-am-i">Where am I?</h4>
+<p>Well, being interested in automating my activities as much as possible, I&rsquo;ve headed to <a href="https://developer.shodan.io/">Shodan API</a> and, humbly following some of the examples, I&rsquo;ve built a simple Python script whose purpose is to query the API and return some results.</p>
+<p>Let&rsquo;s take a look at the high-level steps:</p>
+<ol>
+<li>install the library, <code>easy_install shodan</code></li>
+<li>import the library, <code>import shodan</code></li>
+<li>run it, <code>api.search(&lt;query string&gt;)</code></li>
+</ol>
+<p>How easy is that?</p>
+<p>Let&rsquo;s take a look at the short script, <code>apiquery.py</code>:</p>
+<pre tabindex="0"><code>#!/usr/bin/env python3
+
+import shodan
+import sys
+
+SHODAN_API_KEY = &quot;&lt;API key here&gt;&quot;
+
+if len(sys.argv) == 1:
+        print('Usage: %s &lt;search query&gt;' % sys.argv[0])
+        sys.exit(1)
+
+try:
+    # Search Shodan
+    api = shodan.Shodan(SHODAN_API_KEY)
+
+    query = ' '.join(sys.argv[1:])
+    results = api.search(query)
+
+
+    # Show the results
+    print('Results found: {}'.format(results['total']))
+    for result in results['matches']:
+        print('IP: {}'.format(result['ip_str']))
+        print('Port: {}'.format(result['port']))
+        print(result['data'])
+        print('')
+except shodan.APIError as e:
+    print('Error: {}'.format(e))
+</code></pre><p>Let&rsquo;s run the script:</p>
+<pre tabindex="0"><code>$ ./apiquery.py country:IT city:&quot;Milan&quot;
+Results found: 286058
+</code></pre><p>286k results in my city alone! Let&rsquo;s restrict the query:</p>
+<pre tabindex="0"><code>$ ./apiquery.py country:IT city:&quot;Milan&quot; port:22
+Results found: 7259
+</code></pre><p>A bit more manageable but still interesting outcome, right? If I knew what my public address would be I could restrict even more as follows:</p>
+<pre tabindex="0"><code>$ ./apiquery.py country:IT city:&quot;Milan&quot; port:22 net:&lt;ip_addr&gt;
+Results found: 1
+IP: &lt;ip_addr&gt;
+Port: 22
+SSH-2.0-dropbear
+Key type: ssh-rsa
+Key: AAAAB3NzaC1yc...
+Fingerprint: 30:...:cf
+
+Kex Algorithms:
+	curve25519-sha256@libssh.org
+	ecdh-sha2-nistp521
+	ecdh-sha2-nistp384
+	ecdh-sha2-nistp256
+	diffie-hellman-group14-sha1
+	diffie-hellman-group1-sha1
+	kexguess2@matt.ucc.asn.au
+
+Server Host Key Algorithms:
+	ssh-rsa
+
+Encryption Algorithms:
+	aes128-ctr
+	aes256-ctr
+	aes128-cbc
+	aes256-cbc
+	twofish256-cbc
+	twofish-cbc
+	twofish128-cbc
+	3des-ctr
+	3des-cbc
+
+MAC Algorithms:
+	hmac-sha1-96
+	hmac-sha1
+	hmac-sha2-256
+	hmac-sha2-512
+	hmac-md5
+
+Compression Algorithms:
+	none
+</code></pre><p>Of course <code>port:22</code> can be removed to display any ports/services I&rsquo;m currently exposing.</p>
+<ul class="pa0">
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://carmelo0x99.github.io/" >
+    &copy;  carmelo0x99.github.io 2022 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div></div>
+  </div>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>carmelo0x99.github.io</title>
+    <link>http://carmelo0x99.github.io/</link>
+    <description>Recent content on carmelo0x99.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 29 Jan 2021 12:00:00 +0100</lastBuildDate><atom:link href="http://carmelo0x99.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Buildx: building multi-arch images</title>
+      <link>http://carmelo0x99.github.io/posts/docker_buildx/</link>
+      <pubDate>Fri, 29 Jan 2021 12:00:00 +0100</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/docker_buildx/</guid>
+      <description>First published on 2020-03-19In this post I&amp;rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:
+ x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &amp;quot;model name&amp;quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &amp;quot;model name&amp;quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello.</description>
+    </item>
+    
+    <item>
+      <title>Breaking the ice with Shodan</title>
+      <link>http://carmelo0x99.github.io/posts/breaking_the_ice_with_shodan/</link>
+      <pubDate>Wed, 01 Apr 2020 12:00:00 +0100</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/breaking_the_ice_with_shodan/</guid>
+      <description>Shodan.io Shodan defines itself as the search engine for Internet-connected devices. Replace Internet-connected devices with webcams, refrigerators, power plants&amp;hellip; Raspberry Pis&amp;hellip; you-name-it.
+I&amp;rsquo;d always been curious about Shodan but not that curious to break into someone else&amp;rsquo;s webcam, not my cup of tea. What changed my mind? In the last few days I&amp;rsquo;ve noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I&amp;rsquo;d exposed to the Internet:</description>
+    </item>
+    
+    <item>
+      <title>Running a REPL on-premise</title>
+      <link>http://carmelo0x99.github.io/posts/repl-on-premise/</link>
+      <pubDate>Sun, 29 Mar 2020 12:00:00 +0100</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/repl-on-premise/</guid>
+      <description>Nodebook Nodebook is a multi-language REPL offering both a web UI and a CLI interface. Github: https://github.com/netgusto/nodebook
+NOTE: REPL: Read-Eval-Print Loop
+Set up OS (e.g. CentOS 7) sudo sed -i &amp;quot;s/^#PermitRootLogin yes/PermitRootLogin prohibit-password/&amp;quot; /etc/ssh/sshd_config sudo sed -i &amp;quot;s/^#UseDNS yes/UseDNS no/&amp;quot; /etc/ssh/sshd_config sudo systemctl restart sshd sudo firewall-cmd --permanent --add-port=9001/tcp &amp;amp;&amp;amp; sudo firewall-cmd --reload IMPORTANT: be aware of any security implcations when running such an application. There&amp;rsquo;s always a chance to run malicious code that can harm the guest OS.</description>
+    </item>
+    
+    <item>
+      <title>Docker in depth: namespaces, cgroups, images from scratch</title>
+      <link>http://carmelo0x99.github.io/posts/docker_in_depth/</link>
+      <pubDate>Fri, 20 Mar 2020 12:00:00 +0100</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/docker_in_depth/</guid>
+      <description>INDEX
+ Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&amp;rsquo;s take a closer look at what&amp;rsquo;s in an image.
+NOTE: I&amp;rsquo;m filtering out lots of info by using Docker&amp;rsquo;s format command. {% raw %}
+user@laptop $ docker inspect --format=&amp;quot;{{json .RootFS.Layers}}&amp;quot; ccarmelo/goweb:latest [&amp;quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&amp;quot;, &amp;quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&amp;quot;, &amp;quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&amp;quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+Likewise, docker history can show how the image had been built:</description>
+    </item>
+    
+    <item>
+      <title>Docker Swarm on KVM (CentOS)</title>
+      <link>http://carmelo0x99.github.io/posts/docker_swarm_kvm/</link>
+      <pubDate>Fri, 13 Mar 2020 12:00:00 +0100</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/docker_swarm_kvm/</guid>
+      <description>Docker Swarm on KVM (CentOS) Fast re-run of the previous post, this time streamlined to match VM&amp;rsquo;s on KVM.
+One thing I like about KVM is the ability to have templates and quickly install VM&amp;rsquo;s through Kickstart.
+Let&amp;rsquo;s just assume we have two VM&amp;rsquo;s: swarm-master and swarm-node1. Installation of Docker follows the usual guidelines:
+$ sudo yum upgrade -y &amp;amp;&amp;amp; sudo yum install -y git yum-utils device-mapper-persistent-data lvm2 $ sudo yum-config-manager --add-repo https://download.</description>
+    </item>
+    
+    <item>
+      <title>Docker Swarm on ClusterHAT</title>
+      <link>http://carmelo0x99.github.io/posts/docker_swarm_clusterhat/</link>
+      <pubDate>Tue, 10 Mar 2020 12:00:00 +0100</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/docker_swarm_clusterhat/</guid>
+      <description>INDEX
+ The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally!  NOTE: during this tutorial I&amp;rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
+Installation of ClusterHAT has been described in a previous post.
+The basics: hardware architecture Controller:
+pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:</description>
+    </item>
+    
+    <item>
+      <title>Raspberry PI: install ClusterHAT software</title>
+      <link>http://carmelo0x99.github.io/posts/raspi_clusterhat_install/</link>
+      <pubDate>Mon, 09 Mar 2020 12:00:00 +0100</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/raspi_clusterhat_install/</guid>
+      <description>I&amp;rsquo;ve had these nice Raspberry Pi Zero (vanilla, not &amp;lsquo;W&amp;rsquo;) lying around for quite some time and I wanted to give them a purpose in life.
+By chance (meaning, during my endless browsing of the Twitter-verse and the Reddit-verse) I have discovered the ClusterHAT (Hardware Attached on Top) which &amp;ldquo;interfaces a (Controller) Raspberry Pi A+/B+/2/3 with 4 Raspberry Pi Zeros configured to use USB Gadget mode&amp;rdquo;. To discover more: https://clusterhat.com/.</description>
+    </item>
+    
+  </channel>
+</rss>
