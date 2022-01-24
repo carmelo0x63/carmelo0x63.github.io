@@ -169,7 +169,7 @@ func main() {
         panic(err)
     }
 }
-</code></pre><p>A container is automatically built by means of Docker Hub&rsquo;s <a href="https://docs.docker.com/docker-hub/builds/">automated builds</a> feature. The code is stored on <a href="https://github.com/carmelo0x99/GoWeb">GitHub: carmelo0x99/GoWeb</a> while the container can be pulled from <a href="https://hub.docker.com/repository/docker/ccarmelo/goweb">Docker Hub: ccarmelo/goweb</a>.</p>
+</code></pre><p>A container is automatically built by means of Docker Hub&rsquo;s <a href="https://docs.docker.com/docker-hub/builds/">automated builds</a> feature. The code is stored on <a href="https://github.com/carmelo0x99/GoWeb">GitHub: carmelo0x99/GoWeb</a> while the container can be pulled from <a href="https://hub.docker.com/repository/docker/carmelo0x99/goweb">Docker Hub: carmelo0x99/goweb</a>.</p>
 <p>Now to the juiciest part, running the app through Docker Swarm.</p>
 <pre tabindex="0"><code>$ docker service create --name=s_goweb --publish 8080:8080 --replicas=2 mellowiz/goweb:latest
 </code></pre><p>The image will be automatically pulled for us and run.</p>

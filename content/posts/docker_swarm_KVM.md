@@ -66,7 +66,7 @@ func main() {
 }
 ```
 
-A container is automatically built by means of Docker Hub's [automated builds](https://docs.docker.com/docker-hub/builds/) feature. The code is stored on [GitHub: carmelo0x99/GoWeb](https://github.com/carmelo0x99/GoWeb) while the container can be pulled from [Docker Hub: ccarmelo/goweb](https://hub.docker.com/repository/docker/ccarmelo/goweb).
+A container is automatically built by means of Docker Hub's [automated builds](https://docs.docker.com/docker-hub/builds/) feature. The code is stored on [GitHub: carmelo0x99/GoWeb](https://github.com/carmelo0x99/GoWeb) while the container can be pulled from [Docker Hub: carmelo0x99/goweb](https://hub.docker.com/repository/docker/carmelo0x99/goweb).
 
 Now to the juiciest part, running the app through Docker Swarm.
 ```

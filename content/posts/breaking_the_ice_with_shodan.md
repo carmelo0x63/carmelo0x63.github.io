@@ -8,7 +8,7 @@ draft: false
 Shodan defines itself as the search engine for _Internet-connected devices_. Replace _Internet-connected devices_ with webcams, refrigerators, power plants... Raspberry Pis... you-name-it.
 
 I'd always been curious about Shodan but not that curious to break into someone else's webcam, not my cup of tea. What changed my mind?
-In the last few days I've noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I'd exposed to the Internet:
+In the last few days I've noticed an unusual and very suspect surge of messages like the following one on a couple of servers which I'd exposed to the Internet:
 ```
 Mar 31 15:50:38 <server's name> sshd[11391]: Invalid user miguel from 122.51.114.213 port 48438
 Mar 31 15:50:38 <server's name> sshd[11391]: pam_unix(sshd:auth): check pass; user unknown

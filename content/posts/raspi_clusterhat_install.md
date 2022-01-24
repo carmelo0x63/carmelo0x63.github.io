@@ -14,8 +14,8 @@ This is the (short) story of how I've put them all to work together.
 
 ### On any available computers, write the images onto the SDs. For instance, on a *nix machine:
 **Before** starting, clean up the SD card by removing any existing partitions.
-- `<type>` = CBRIDGE, CNAT, p[N]-p4<br/>
-- `<device>` = e.g /dev/sdb, /dev/mmcblk0...<br/>
+- `<type>` = CBRIDGE, CNAT, p**N**</br>
+- `<device>` = e.g /dev/sdb, /dev/mmcblk0...</br>
 **NOTE**: based on "Stretch" hence "2019-04-08"
 ```
 $ sudo dd if=ClusterCTRL-2019-04-08-lite-4-<type>.img of=/dev/<device> bs=1M

@@ -13,7 +13,7 @@
       <pubDate>Fri, 29 Jan 2021 12:00:00 +0100</pubDate>
       
       <guid>http://carmelo0x99.github.io/posts/docker_buildx/</guid>
-      <description>First published on 2020-03-19In this post I&amp;rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:
+      <description>First published on 2020-03-19In this post I&amp;rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
  x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &amp;quot;model name&amp;quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &amp;quot;model name&amp;quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello.</description>
     </item>
     
@@ -24,7 +24,7 @@
       
       <guid>http://carmelo0x99.github.io/posts/breaking_the_ice_with_shodan/</guid>
       <description>Shodan.io Shodan defines itself as the search engine for Internet-connected devices. Replace Internet-connected devices with webcams, refrigerators, power plants&amp;hellip; Raspberry Pis&amp;hellip; you-name-it.
-I&amp;rsquo;d always been curious about Shodan but not that curious to break into someone else&amp;rsquo;s webcam, not my cup of tea. What changed my mind? In the last few days I&amp;rsquo;ve noticed an unusual and very suspect surge of messages like the followin one on a couple of servers which I&amp;rsquo;d exposed to the Internet:</description>
+I&amp;rsquo;d always been curious about Shodan but not that curious to break into someone else&amp;rsquo;s webcam, not my cup of tea. What changed my mind? In the last few days I&amp;rsquo;ve noticed an unusual and very suspect surge of messages like the following one on a couple of servers which I&amp;rsquo;d exposed to the Internet:</description>
     </item>
     
     <item>

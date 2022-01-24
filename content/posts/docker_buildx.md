@@ -5,7 +5,8 @@ draft: false
 ---
 
 **First published on 2020-03-19**</br>
-In this post I'll explore how to build images that can run on multiple architectures. My scenario is composed of the two following computers:
+</br>
+In this post I'll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
 - x86_64
   ```
   $ docker info | grep Architecture
