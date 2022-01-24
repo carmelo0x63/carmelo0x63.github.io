@@ -17,7 +17,7 @@ Let's take a closer look at what's in an image.
 **NOTE**: I'm filtering out lots of info by using Docker's [format command](https://docs.docker.com/config/formatting/).
 {% raw %}
 ```
-user@laptop $ docker inspect --format="{{json .RootFS.Layers}}" ccarmelo/goweb:latest
+user@laptop $ docker inspect --format="{{json .RootFS.Layers}}" carmelo0x99/goweb:latest
 ["sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10",
  "sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69",
  "sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d"]
@@ -27,7 +27,7 @@ One can see that, for instance, the image above is made up of three different la
 
 Likewise, `docker history` can show how the image had been built:
 ```
-user@laptop $ docker history ccarmelo/goweb:latest
+user@laptop $ docker history carmelo0x99/goweb:latest
 IMAGE          CREATED        CREATED BY                                      SIZE    COMMENT
 ccf5bf7f5979   7 days ago     /bin/sh -c #(nop)  CMD ["./main.go"]            0B
 <missing>      7 days ago     /bin/sh -c #(nop) COPY file:fe2451faf4c4dbce…   7.47MB
@@ -41,7 +41,7 @@ A container runs off the image but is an entirely different object.
 ```
 user@laptop $ docker container ls
 CONTAINER ID   IMAGE                   COMMAND       CREATED          STATUS          PORTS   NAMES
-66df9337ad51   ccarmelo/goweb:latest   "./main.go"   14 minutes ago   Up 14 minutes           beautiful_williamson
+66df9337ad51   carmelo0x99/goweb:latest   "./main.go"   14 minutes ago   Up 14 minutes           beautiful_williamson
 ```
 
 In reality, the application is obviously running on our host, we can see how it's identified by its PID:
@@ -155,7 +155,7 @@ user@laptop $ cat /proc/3993/cgroup
 user@laptop $ cat /sys/fs/cgroup/memory/docker/66df9337ad51dd25ed8befe778bfe19698df8636a3fbfb45c4257899d93d9a86/memory.limit_in_bytes
 9223372036854771712
 
-user@laptop $ docker run -d --memory 4m --name test4m ccarmelo/goweb:latest
+user@laptop $ docker run -d --memory 4m --name test4m carmelo0x99/goweb:latest
 WARNING: Your kernel does not support swap limit capabilities or the cgroup is not mounted. Memory limited without swap.
 051f309ee14220936dd6a746341cde687c94bca45108a9413ba7fcc1ee323520
 
@@ -197,7 +197,7 @@ BUG_REPORT_URL="https://bugs.alpinelinux.org/"
 
 We can start the build process as follows now:
 ```
-user@laptop docker build -t ccarmelo/scratch:1.0 .
+user@laptop docker build -t carmelo0x99/scratch:1.0 .
 Sending build context to Docker daemon  2.728MB
 Step 1/4 : FROM scratch
  --->
@@ -210,20 +210,20 @@ Step 4/4 : CMD ["/bin/sh"]
 Removing intermediate container a494bc027971
  ---> 786e178aee95
 Successfully built 786e178aee95
-Successfully tagged ccarmelo/scratch:1.0
+Successfully tagged carmelo0x99/scratch:1.0
 ```
 
 One thing to notice is how small our image is:
 ```
 user@laptop docker image ls
 REPOSITORY          TAG                                        IMAGE ID            CREATED             SIZE
-ccarmelo/scratch    1.0                                        786e178aee95        14 seconds ago      5.6MB
+carmelo0x99/scratch    1.0                                        786e178aee95        14 seconds ago      5.6MB
 ...
 ```
 
 Next and last step is to verify that the image is behaving as intended:
 ```
-user@laptop docker run -it ccarmelo/scratch:1.0 sh
+user@laptop docker run -it carmelo0x99/scratch:1.0 sh
 / # cat /etc/os-release
 NAME="My cool-and-small image"
 ID=alpine

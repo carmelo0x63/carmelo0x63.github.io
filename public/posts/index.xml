@@ -47,7 +47,7 @@ Set up OS (e.g. CentOS 7) sudo sed -i &amp;quot;s/^#PermitRootLogin yes/PermitRo
       <description>INDEX
  Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&amp;rsquo;s take a closer look at what&amp;rsquo;s in an image.
 NOTE: I&amp;rsquo;m filtering out lots of info by using Docker&amp;rsquo;s format command. {% raw %}
-user@laptop $ docker inspect --format=&amp;quot;{{json .RootFS.Layers}}&amp;quot; ccarmelo/goweb:latest [&amp;quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&amp;quot;, &amp;quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&amp;quot;, &amp;quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&amp;quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+user@laptop $ docker inspect --format=&amp;quot;{{json .RootFS.Layers}}&amp;quot; carmelo0x99/goweb:latest [&amp;quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&amp;quot;, &amp;quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&amp;quot;, &amp;quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&amp;quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
 Likewise, docker history can show how the image had been built:</description>
     </item>
     
