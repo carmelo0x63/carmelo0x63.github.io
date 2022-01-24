@@ -9,9 +9,9 @@ INDEX
 - [Our app, an HTTP _server_](#app)
 - [Docker Swarm, finally!](#swarm)
 
-**NOTE**: during this tutorial I'll be using **ARM32v6** images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with [Buildx](https://www.docker.com/blog/multi-arch-images/), are covered in [another article](https://carmelo0x99.github.io/posts/docker_buildx.html).
+**NOTE**: during this tutorial I'll be using **ARM32v6** images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with [Buildx](https://www.docker.com/blog/multi-arch-images/), are covered in [another article](https://carmelo0x99.github.io/posts/docker_buildx/).
 
-[Installation of ClusterHAT](https://carmelo0x99.github.io/posts/raspi_clusterhat_install.html) has been described in a [previous post](https://carmelo0x99.github.io/posts/raspi_clusterhat_install.html).
+[Installation of ClusterHAT](https://carmelo0x99.github.io/posts/raspi_clusterhat_install/) has been described in a [previous post](https://carmelo0x99.github.io/posts/raspi_clusterhat_install/).
 
 <a name="basics"></a>
 ### The basics: hardware architecture
