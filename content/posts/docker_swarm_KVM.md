@@ -5,7 +5,7 @@ draft: false
 ---
 
 ## Docker Swarm on KVM (CentOS)
-Fast re-run of the [previous post](https://carmeloc.github.io/misc/2020/03/10/docker_swarm_clusterhat.html), this time streamlined to match VM's on [KVM](https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-server/).
+Fast re-run of the [previous post](https://carmelo0x99.github.io/docker_swarm_clusterhat.html), this time streamlined to match VM's on [KVM](https://www.cyberciti.biz/faq/how-to-install-kvm-on-centos-7-rhel-7-headless-server/).
 
 One thing I like about KVM is the ability to have _templates_ and quickly install VM's through [Kickstart](https://docs.centos.org/en-US/centos/install-guide/Kickstart2/).
 
@@ -66,7 +66,7 @@ func main() {
 }
 ```
 
-A container is automatically built by means of Docker Hub's [automated builds](https://docs.docker.com/docker-hub/builds/) feature. The code is stored on [GitHub: carmeloc/GoWeb](https://github.com/carmeloc/GoWeb) while the container can be pulled from [Docker Hub: ccarmelo/goweb](https://hub.docker.com/repository/docker/ccarmelo/goweb).
+A container is automatically built by means of Docker Hub's [automated builds](https://docs.docker.com/docker-hub/builds/) feature. The code is stored on [GitHub: carmelo0x99/GoWeb](https://github.com/carmelo0x99/GoWeb) while the container can be pulled from [Docker Hub: ccarmelo/goweb](https://hub.docker.com/repository/docker/ccarmelo/goweb).
 
 Now to the juiciest part, running the app through Docker Swarm.
 ```
