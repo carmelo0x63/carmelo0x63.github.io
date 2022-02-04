@@ -1,7 +1,6 @@
 ---
 title: AArch64 assembly - part 0 
 date: 2022-01-24T114:41:00+01:00
-url: "/aarch64_home/"
 draft: false
 description: A short series of articles re. Assembly on ARM64
 #series: AArch64
@@ -14,7 +13,8 @@ tags:
 ## AArch64
 
 ### Index
-0. [Home](aarch64_home)</br>
+<!--0. [Home](https://carmelo0x99.github.io/posts/aarch64_home)</br>-->
+0. [Home]({{< ref "/posts/aarch64_home" >}})</br>
 1. [Let's break the ice](aarch64_first)</br>
 2. [Under the surface](aarch64_second)</br>
 3. [Under the microscope](aarch64_third)</br>

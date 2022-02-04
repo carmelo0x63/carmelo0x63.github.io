@@ -4,8 +4,6 @@ date: 2021-01-29T12:00:00+01:00
 draft: false
 ---
 
-**First published on 2020-03-19**</br>
-</br>
 In this post I'll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
 - x86_64
   ```

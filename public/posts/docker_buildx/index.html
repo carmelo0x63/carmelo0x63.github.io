@@ -6,9 +6,9 @@
     
     <title>Buildx: building multi-arch images | carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
-    <meta name="description" content="First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
+    <meta name="description" content="In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
  x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello.">
-    <meta name="generator" content="Hugo 0.92.0" />
+    <meta name="generator" content="Hugo 0.92.1" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -29,7 +29,7 @@
     
     
     <meta property="og:title" content="Buildx: building multi-arch images" />
-<meta property="og:description" content="First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
+<meta property="og:description" content="In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
  x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://carmelo0x99.github.io/posts/docker_buildx/" /><meta property="article:section" content="posts" />
@@ -37,13 +37,13 @@
 <meta property="article:modified_time" content="2021-01-29T12:00:00+01:00" />
 
 <meta itemprop="name" content="Buildx: building multi-arch images">
-<meta itemprop="description" content="First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
+<meta itemprop="description" content="In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
  x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello."><meta itemprop="datePublished" content="2021-01-29T12:00:00+01:00" />
 <meta itemprop="dateModified" content="2021-01-29T12:00:00+01:00" />
-<meta itemprop="wordCount" content="545">
+<meta itemprop="wordCount" content="542">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Buildx: building multi-arch images"/>
-<meta name="twitter:description" content="First published on 2020-03-19In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
+<meta name="twitter:description" content="In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
  x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello."/>
 
 	
@@ -116,9 +116,7 @@
       
       
     </header>
-    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p><strong>First published on 2020-03-19</strong><!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:</p>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><p>In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:</p>
 <ul>
 <li>x86_64
 <pre tabindex="0"><code>$ docker info | grep Architecture

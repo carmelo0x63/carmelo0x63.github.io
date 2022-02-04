@@ -11,7 +11,7 @@
 NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
 user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; carmelo0x99/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
 Likewise, docker history can show how the image had been built:">
-    <meta name="generator" content="Hugo 0.92.0" />
+    <meta name="generator" content="Hugo 0.92.1" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
