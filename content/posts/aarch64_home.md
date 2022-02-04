@@ -1,6 +1,6 @@
 ---
 title: AArch64 assembly - part 0 
-date: 2022-01-24T114:41:00+01:00
+date: 2022-01-24T14:41:00+01:00
 draft: false
 description: A short series of articles re. Assembly on ARM64
 #series: AArch64

@@ -5,11 +5,22 @@
     <link>http://carmelo0x99.github.io/tags/assembly/</link>
     <description>Recent content in assembly on carmelo0x99.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="http://carmelo0x99.github.io/tags/assembly/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Feb 2022 10:58:00 +0100</lastBuildDate><atom:link href="http://carmelo0x99.github.io/tags/assembly/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AArch64 assembly - part 1</title>
+      <link>http://carmelo0x99.github.io/posts/aarch64_first/</link>
+      <pubDate>Wed, 02 Feb 2022 10:58:00 +0100</pubDate>
+      
+      <guid>http://carmelo0x99.github.io/posts/aarch64_first/</guid>
+      <description>AArch64 Index Home Let&amp;rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Let&amp;rsquo;s break the ice &amp;hellip; or, let&amp;rsquo;s quickly generate some assembly code and run it.Our very first program Let&amp;rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code.Copy and paste the following code into a file named answer.s.
+The program can be assembled and linked with as and ld from binutils:</description>
+    </item>
+    
     <item>
       <title>AArch64 assembly - part 0</title>
       <link>http://carmelo0x99.github.io/posts/aarch64_home/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 24 Jan 2022 14:41:00 +0100</pubDate>
       
       <guid>http://carmelo0x99.github.io/posts/aarch64_home/</guid>
       <description>AArch64 Index Home Let&amp;rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Background I&amp;rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&amp;rsquo;t claim to be an expert here.Be that as it may, I&amp;rsquo;m curious, I&amp;rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment.I love tutorials on the Internet because, that&amp;rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.</description>
