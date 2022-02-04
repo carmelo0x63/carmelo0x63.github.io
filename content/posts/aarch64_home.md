@@ -13,13 +13,12 @@ tags:
 ## AArch64
 
 ### Index
-<!--0. [Home](https://carmelo0x99.github.io/posts/aarch64_home)</br>-->
 0. [Home]({{< ref "/posts/aarch64_home" >}})</br>
-1. [Let's break the ice](aarch64_first)</br>
-2. [Under the surface](aarch64_second)</br>
-3. [Under the microscope](aarch64_third)</br>
-4. [Cross-compilation](aarch64_fourth)</br>
-5. [Resources](aarch64_resources)</br>
+1. [Let's break the ice]({{< ref "/posts/aarch64_first" >}})</br>
+2. [Under the surface]({{< ref "/posts/aarch64_second" >}})</br>
+3. [Under the microscope]({{< ref "/posts/aarch64_third" >}})</br>
+4. [Cross-compilation]({{< ref "/posts/aarch64_fourth" >}})</br>
+5. [Resources]({{< ref "/posts/aarch64_resources" >}})</br>
 
 ----
 

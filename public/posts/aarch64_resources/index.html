@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <title>AArch64 assembly - part 1 | carmelo0x99.github.io</title>
+    <title>AArch64 assembly - part 5 | carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="A short series of articles re. Assembly on ARM64">
     <meta name="generator" content="Hugo 0.92.1" />
@@ -27,19 +27,19 @@
 
     
     
-    <meta property="og:title" content="AArch64 assembly - part 1" />
+    <meta property="og:title" content="AArch64 assembly - part 5" />
 <meta property="og:description" content="A short series of articles re. Assembly on ARM64" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://carmelo0x99.github.io/posts/aarch64_first/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-02-02T10:58:00+01:00" />
-<meta property="article:modified_time" content="2022-02-02T10:58:00+01:00" />
+<meta property="og:url" content="http://carmelo0x99.github.io/posts/aarch64_resources/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-02T11:09:00+01:00" />
+<meta property="article:modified_time" content="2022-02-02T11:09:00+01:00" />
 
-<meta itemprop="name" content="AArch64 assembly - part 1">
-<meta itemprop="description" content="A short series of articles re. Assembly on ARM64"><meta itemprop="datePublished" content="2022-02-02T10:58:00+01:00" />
-<meta itemprop="dateModified" content="2022-02-02T10:58:00+01:00" />
-<meta itemprop="wordCount" content="308">
+<meta itemprop="name" content="AArch64 assembly - part 5">
+<meta itemprop="description" content="A short series of articles re. Assembly on ARM64"><meta itemprop="datePublished" content="2022-02-02T11:09:00+01:00" />
+<meta itemprop="dateModified" content="2022-02-02T11:09:00+01:00" />
+<meta itemprop="wordCount" content="106">
 <meta itemprop="keywords" content="assembly,arm64,aarch64," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="AArch64 assembly - part 1"/>
+<meta name="twitter:title" content="AArch64 assembly - part 5"/>
 <meta name="twitter:description" content="A short series of articles re. Assembly on ARM64"/>
 
 	
@@ -102,11 +102,11 @@
   </div>
 
 
-      <h1 class="f1 athelas mt3 mb1">AArch64 assembly - part 1</h1>
+      <h1 class="f1 athelas mt3 mb1">AArch64 assembly - part 5</h1>
       
       
       
-      <time class="f6 mv4 dib tracked" datetime="2022-02-02T10:58:00+01:00">February 2, 2022</time>
+      <time class="f6 mv4 dib tracked" datetime="2022-02-02T11:09:00+01:00">February 2, 2022</time>
       
 
       
@@ -123,40 +123,21 @@
 <li><a href="http://carmelo0x99.github.io/posts/aarch64_resources/">Resources</a><!-- raw HTML omitted --></li>
 </ol>
 <hr>
-<h2 id="lets-break-the-ice">Let&rsquo;s break the ice</h2>
-<p>&hellip; or, let&rsquo;s quickly generate some assembly code and run it.<!-- raw HTML omitted --></p>
-<h3 id="our-very-first-program">Our very first program</h3>
-<p>Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific <em>return code</em>.<!-- raw HTML omitted -->
-Copy and paste the following code into a file named <code>answer.s</code>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>The program can be assembled and linked with <code>as</code> and <code>ld</code> from <code>binutils</code>:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p><strong>NOTE</strong>: option <code>-g</code> in the first step is used to retain symbols in the code. It is optional and only used for the purpose of these notes.<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-Finally, as mentioned in the code, it can be run as follows:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h3 id="wut">Wut?</h3>
-<p>Oh! Wow! Indeed it works&hellip; and, apparently, it didn&rsquo;t break anything. Good!<!-- raw HTML omitted -->
-Let&rsquo;s dig a bit deeper and look at what we&rsquo;ve done.<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-Our file <code>answer.s</code> is a tiny text file abiding to a specific syntax. A few elements can be identified:</p>
-<ul>
-<li><code>/*</code> and <code>*/</code>: multi-line comment, anything in between is ignored by the assembler (<code>as</code>)</li>
-<li><code>//</code>: single-line comment, anything between the double forward slashes and the end of the line is ignored</li>
-<li><code>.text</code>: this statement marks the beginning of our code</li>
-<li><code>.global</code>: this statemenet is followed by a symbol (<code>_start</code>) which is <em>exposed</em> to the linker (<code>ld</code>); anything after <code>_start</code> is our <em>real</em> code</li>
-<li><code>mov</code>: this is an AArch64 instruction whose aim is to move some data (<code>#42</code>, decimal <code>42</code>) to <code>x0</code> (the first general-purpose register in ARMv8 processors)</li>
-<li><code>svc</code>: this instruction passes control back to the OS while invoking the <code>syscall</code> whose number has been stored in <code>x8</code>
-<!-- raw HTML omitted -->
-Once the file has been saved it is assembled with <code>as</code> and, finally, linked with <code>ld</code>. The resulting file can be run from the command line and its output can be read with the <code>echo $?</code> command.<!-- raw HTML omitted -->
-Easy, huh!?!<!-- raw HTML omitted --></li>
-</ul>
-<p><strong>NOTE</strong>: for more info on <code>syscall</code> try <code>man syscall</code>. Hint:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<h3 id="aarch64-1">AArch64</h3>
+<p><a href="https://thinkingeek.com/categories/aarch64/">Exploring AArch64 assembler</a></p>
+<p><a href="https://modexp.wordpress.com/2018/10/30/arm64-assembly/">A Guide to ARM64/AArch64 Assembly on Linux with Shellcodes and Cryptography</a></p>
+<p><a href="https://peterdn.com/post/2020/08/22/hello-world-in-arm64-assembly/">&lsquo;Hello World&rsquo; in ARM64 Assembly</a></p>
+<p><a href="https://www.linuxbnb.net/home/writing-arm-assembly-programs/">Writing ARM Assembly Programs</a></p>
+<p><a href="http://bob.cs.sonoma.edu/IntroCompOrg-RPi/intro-co-rpi.html">Introduction to Computer Organization: ARM Assembly Language Using the Raspberry Pi</a></p>
+<p><a href="https://wolchok.org/posts/how-to-read-arm64-assembly-language/">How to read ARM64 assembly language</a></p>
+<h3 id="arm-official-guides">Arm official guides</h3>
+<p><a href="https://developer.arm.com/documentation/den0024/latest/">ARM Cortex-A Series Programmer&rsquo;s Guide for ARMv8-A</a></p>
+<p><a href="https://developer.arm.com/documentation/100076/0100/">Arm Instruction Set Reference Guide</a></p>
+<p><a href="https://developer.arm.com/documentation/102374/latest/">Learn the architecture: AArch64 Instruction Set Architecture</a></p>
+<p><a href="https://developer.arm.com/documentation/102422/0100/">Learn the Architecture: Getting started with A64 exercises</a></p>
+<h3 id="gdb">GDB</h3>
+<p><a href="https://azeria-labs.com/debugging-with-gdb-introduction/">Debugging with GDB</a><!-- raw HTML omitted -->
+<strong>NOTE</strong>: although targeted towards AArch32, you may want to take a look at Azeria&rsquo;s <a href="https://azeria-labs.com/writing-arm-assembly-part-1/">ARM assembly tutorial</a></p>
 <ul class="pa0">
   
    <li class="list">
@@ -187,6 +168,22 @@ Easy, huh!?!<!-- raw HTML omitted --></li>
     <p class="f5 b mb3">Related</p>
     <ul class="pa0 list">
 	   
+	     <li  class="mb2">
+          <a href="/posts/aarch64_fourth/">AArch64 assembly - part 4</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/aarch64_third/">AArch64 assembly - part 3</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/aarch64_second/">AArch64 assembly - part 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/aarch64_first/">AArch64 assembly - part 1</a>
+        </li>
+	    
 	     <li  class="mb2">
           <a href="/posts/aarch64_home/">AArch64 assembly - part 0</a>
         </li>

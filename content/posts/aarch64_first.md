@@ -13,12 +13,12 @@ tags:
 ## AArch64
 
 ### Index
-0. [Home](README.md)</br>
-1. [Let's break the ice](FIRST.md)</br>
-2. [Under the surface](SECOND.md)</br>
-3. [Under the microscope](THIRD.md)</br>
-4. [Cross-compilation](FOURTH.md)</br>
-5. [Resources](RESOURCES.md)</br>
+0. [Home]({{< ref "/posts/aarch64_home" >}})</br>
+1. [Let's break the ice]({{< ref "/posts/aarch64_first" >}})</br>
+2. [Under the surface]({{< ref "/posts/aarch64_second" >}})</br>
+3. [Under the microscope]({{< ref "/posts/aarch64_third" >}})</br>
+4. [Cross-compilation]({{< ref "/posts/aarch64_fourth" >}})</br>
+5. [Resources]({{< ref "/posts/aarch64_resources" >}})</br>
 
 ----
 

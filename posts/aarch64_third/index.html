@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+    <title>AArch64 assembly - part 3 | carmelo0x99.github.io</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="A short series of articles re. Assembly on ARM64">
+    <meta name="generator" content="Hugo 0.92.1" />
+    
+    
+      <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    
+
+    
+<link rel="stylesheet" href="/ananke/css/main.min.css" >
+
+
+
+    
+    
+    
+      
+
+    
+
+    
+    
+    <meta property="og:title" content="AArch64 assembly - part 3" />
+<meta property="og:description" content="A short series of articles re. Assembly on ARM64" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://carmelo0x99.github.io/posts/aarch64_third/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-02T11:07:00+01:00" />
+<meta property="article:modified_time" content="2022-02-02T11:07:00+01:00" />
+
+<meta itemprop="name" content="AArch64 assembly - part 3">
+<meta itemprop="description" content="A short series of articles re. Assembly on ARM64"><meta itemprop="datePublished" content="2022-02-02T11:07:00+01:00" />
+<meta itemprop="dateModified" content="2022-02-02T11:07:00+01:00" />
+<meta itemprop="wordCount" content="365">
+<meta itemprop="keywords" content="assembly,arm64,aarch64," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="AArch64 assembly - part 3"/>
+<meta name="twitter:description" content="A short series of articles re. Assembly on ARM64"/>
+
+	
+  </head>
+
+  <body class="ma0 avenir bg-near-white">
+
+    
+   
+  
+
+  <header>
+    <div class="bg-black">
+      <nav class="pv3 ph3 ph4-ns" role="navigation">
+  <div class="flex-l justify-between items-center center">
+    <a href="/" class="f3 fw2 hover-white no-underline white-90 dib">
+      
+        carmelo0x99.github.io
+      
+    </a>
+    <div class="flex-l items-center">
+      
+
+      
+      
+<div class="ananke-socials">
+  
+</div>
+    </div>
+  </div>
+</nav>
+
+    </div>
+  </header>
+
+
+
+    <main class="pb7" role="main">
+      
+  
+  <article class="flex-l flex-wrap justify-between mw8 center ph3">
+    <header class="mt4 w-100">
+      <aside class="instapaper_ignoref b helvetica tracked">
+          
+        POSTS
+      </aside>
+      
+
+
+
+
+
+
+
+
+
+
+  <div id="sharing" class="mt3 ananke-socials">
+    
+  </div>
+
+
+      <h1 class="f1 athelas mt3 mb1">AArch64 assembly - part 3</h1>
+      
+      
+      
+      <time class="f6 mv4 dib tracked" datetime="2022-02-02T11:07:00+01:00">February 2, 2022</time>
+      
+
+      
+      
+    </header>
+    <div class="nested-copy-line-height lh-copy serif f4 nested-links nested-img mid-gray pr4-l w-two-thirds-l"><h2 id="aarch64">AArch64</h2>
+<h3 id="index">Index</h3>
+<ol start="0">
+<li><a href="http://carmelo0x99.github.io/posts/aarch64_home/">Home</a><!-- raw HTML omitted --></li>
+<li><a href="http://carmelo0x99.github.io/posts/aarch64_first/">Let&rsquo;s break the ice</a><!-- raw HTML omitted --></li>
+<li><a href="http://carmelo0x99.github.io/posts/aarch64_second/">Under the surface</a><!-- raw HTML omitted --></li>
+<li><a href="http://carmelo0x99.github.io/posts/aarch64_third/">Under the microscope</a><!-- raw HTML omitted --></li>
+<li><a href="http://carmelo0x99.github.io/posts/aarch64_fourth/">Cross-compilation</a><!-- raw HTML omitted --></li>
+<li><a href="http://carmelo0x99.github.io/posts/aarch64_resources/">Resources</a><!-- raw HTML omitted --></li>
+</ol>
+<hr>
+<h2 id="under-the-microscope">Under the microscope</h2>
+<p>We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if <code>GDB</code> wasn&rsquo;t mentioned here.<!-- raw HTML omitted -->
+<code>GDB</code> is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine. It is truly the microscope with which we can see what our tiny program is doing in real-time.<!-- raw HTML omitted -->
+Let&rsquo;s run our executable through <code>gdb</code>. Remember, the file must have been assembled with option <code>-g</code> enabled!<!-- raw HTML omitted --></p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Before doing anything else, let&rsquo;s associate a <strong>breakpoint</strong> with the symbol <code>_start</code> (see the <a href="answer.s">source code</a> in case you need to refresh your memory).</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p><strong>NOTE</strong>: a <em>breakpoint</em> stops the execution of a program at a given point. From there the execution can be controlled step-by-step for instance.<!-- raw HTML omitted -->
+Finally, we <code>run</code> our program as follows:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>The output shows that execution has stopped at <code>Breakpoint 1</code>, corresponding to label <code>_start</code> and that the next step will be running the code shown below. <code>15</code> represents the row number in the source code.<!-- raw HTML omitted -->
+Taking a look at the registers will show that their contents has been reset and nothing has been changed yet.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>To move forward we need to tell <code>gdb</code> to run the next instruction: <code>mov x0, #42</code>.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Again, it&rsquo;ll execute our command then stop showing the following step.
+Not unexpectedly, by examining the registers we&rsquo;ll show that something has indeed changed:</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Specifically, <code>x0</code> now contains the value <code>0x2a</code> (corresponding to decimal <code>42</code>). Likewise <code>pc</code>, the <strong>Program Counter</strong>, displays the address of the next instruction in memory, or <code>_start</code> = 0x400078 + 4 bytes = 0x40007c.<!-- raw HTML omitted -->Once again we type <code>next</code> to run <code>mov x8, #93</code>. <code>gdb</code> will execute the instruction and immediately stop.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>The register status has been updated with new data (<code>0x5d</code> in register <code>x8</code>) and <code>pc</code> has been incremented.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>Finally, by typing <code>next</code> one more time, the last instruction (<code>svc #0</code>) will be run and execution will stop.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<h3 id="gdb-help">GDB help</h3>
+<p><code>gdb</code> offers a help command to investigate its many features. The Internet has many tutorials and a number of good books exist.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<ul class="pa0">
+  
+   <li class="list">
+     <a href="/tags/assembly" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">assembly</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/arm64" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">arm64</a>
+   </li>
+  
+   <li class="list">
+     <a href="/tags/aarch64" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">aarch64</a>
+   </li>
+  
+</ul>
+<div class="mt6 instapaper_ignoref">
+      
+      
+      </div>
+    </div>
+
+    <aside class="w-30-l mt6-l">
+
+
+
+
+  <div class="bg-light-gray pa3 nested-list-reset nested-copy-line-height nested-links">
+    <p class="f5 b mb3">Related</p>
+    <ul class="pa0 list">
+	   
+	     <li  class="mb2">
+          <a href="/posts/aarch64_second/">AArch64 assembly - part 2</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/aarch64_first/">AArch64 assembly - part 1</a>
+        </li>
+	    
+	     <li  class="mb2">
+          <a href="/posts/aarch64_home/">AArch64 assembly - part 0</a>
+        </li>
+	    
+    </ul>
+</div>
+
+</aside>
+
+  </article>
+
+    </main>
+    <footer class="bg-black bottom-0 w-100 pa3" role="contentinfo">
+  <div class="flex justify-between">
+  <a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href="http://carmelo0x99.github.io/" >
+    &copy;  carmelo0x99.github.io 2022 
+  </a>
+    <div>
+<div class="ananke-socials">
+  
+</div></div>
+  </div>
+</footer>
+
+  </body>
+</html>
