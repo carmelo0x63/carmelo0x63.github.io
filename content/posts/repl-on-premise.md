@@ -70,5 +70,5 @@ EOF
 nodebook-linux --bindaddress <ip_address> --port <port> --docker ~/Nodebooks &
 ```
 
-Point your browser to <ip_address>:<port> and have fun!
+Point your browser to `<ip_address>:<port>` and have fun!
 

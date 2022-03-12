@@ -7,7 +7,7 @@ Personal notes, small guides, ramblings I'd like to store somewhere public
 brew install hugo
 
 #### Start Hugo server in "draft" mode
-hugo server -D
+hugo server -D [--bind="0.0.0.0"]
 
 #### Convert draft pages into .html files
 hugo -D
