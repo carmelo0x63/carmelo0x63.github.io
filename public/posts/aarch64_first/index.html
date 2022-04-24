@@ -37,7 +37,7 @@
 <meta itemprop="name" content="AArch64 assembly - part 1">
 <meta itemprop="description" content="A short series of articles re. Assembly on ARM64"><meta itemprop="datePublished" content="2022-02-02T10:58:00+01:00" />
 <meta itemprop="dateModified" content="2022-02-02T10:58:00+01:00" />
-<meta itemprop="wordCount" content="308">
+<meta itemprop="wordCount" content="386">
 <meta itemprop="keywords" content="assembly,arm64,aarch64," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="AArch64 assembly - part 1"/>
 <meta name="twitter:description" content="A short series of articles re. Assembly on ARM64"/>
@@ -128,17 +128,35 @@
 <h3 id="our-very-first-program">Our very first program</h3>
 <p>Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific <em>return code</em>.<!-- raw HTML omitted -->
 Copy and paste the following code into a file named <code>answer.s</code>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>The program can be assembled and linked with <code>as</code> and <code>ld</code> from <code>binutils</code>:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p><strong>NOTE</strong>: option <code>-g</code> in the first step is used to retain symbols in the code. It is optional and only used for the purpose of these notes.<!-- raw HTML omitted -->
+<pre tabindex="0"><code>/*
+  File: answer.s
+  Purpose: runs and, immediately, exits while leaving a return code that can be displayed
+           through the OS
+  Example:
+    $ ./answer
+    $ echo $?
+    42
+*/
+.text
+
+.global _start
+
+_start:
+    mov x0, #42  // x0 ←  42
+    mov x8, #93  // x8 ←  93 (__NR_exit)
+    svc #0       // syscall
+</code></pre><p>The program can be assembled and linked with <code>as</code> and <code>ld</code> from <code>binutils</code>:</p>
+<pre tabindex="0"><code>$ &lt;b&gt;as -g answer.s -o answer.o&lt;/b&gt;
+
+$ &lt;b&gt;ld answer.o -o answer&lt;/b&gt;
+</code></pre><p><strong>NOTE</strong>: option <code>-g</code> in the first step is used to retain symbols in the code. It is optional and only used for the purpose of these notes.<!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 Finally, as mentioned in the code, it can be run as follows:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h3 id="wut">Wut?</h3>
+<pre tabindex="0"><code>$ &lt;b&gt;./answer&lt;/b&gt;
+
+$ &lt;b&gt;echo $?&lt;/b&gt;
+42
+</code></pre><h3 id="wut">Wut?</h3>
 <p>Oh! Wow! Indeed it works&hellip; and, apparently, it didn&rsquo;t break anything. Good!<!-- raw HTML omitted -->
 Let&rsquo;s dig a bit deeper and look at what we&rsquo;ve done.<!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
@@ -155,9 +173,9 @@ Once the file has been saved it is assembled with <code>as</code> and, finally, 
 Easy, huh!?!<!-- raw HTML omitted --></li>
 </ul>
 <p><strong>NOTE</strong>: for more info on <code>syscall</code> try <code>man syscall</code>. Hint:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<ul class="pa0">
+<pre tabindex="0"><code>$ grep 93 /usr/include/asm-generic/unistd.h | head -n1
+#define __NR_exit 93
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/assembly" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">assembly</a>

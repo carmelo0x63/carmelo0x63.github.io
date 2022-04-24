@@ -29,7 +29,7 @@ tags:
 Let's write a small assembly program that does nothing but exits by leaving a specific *return code*.</br>
 Copy and paste the following code into a file named `answer.s`.
 
-<pre>
+```
 /*
   File: answer.s
   Purpose: runs and, immediately, exits while leaving a return code that can be displayed
@@ -47,26 +47,26 @@ _start:
     mov x0, #42  // x0 ←  42
     mov x8, #93  // x8 ←  93 (__NR_exit)
     svc #0       // syscall
-</pre>
+```
 
 The program can be assembled and linked with `as` and `ld` from `binutils`:
 
-<pre>
+```
 $ <b>as -g answer.s -o answer.o</b>
 
 $ <b>ld answer.o -o answer</b>
-</pre>
+```
 
 **NOTE**: option `-g` in the first step is used to retain symbols in the code. It is optional and only used for the purpose of these notes.</br>
 </br>
 Finally, as mentioned in the code, it can be run as follows:
 
-<pre>
+```
 $ <b>./answer</b>
 
 $ <b>echo $?</b>
 42
-</pre>
+```
 
 ### Wut?
 Oh! Wow! Indeed it works... and, apparently, it didn't break anything. Good!</br>
@@ -85,8 +85,8 @@ Easy, huh!?!</br>
 
 **NOTE**: for more info on `syscall` try `man syscall`. Hint:
 
-<pre>
+```
 $ grep 93 /usr/include/asm-generic/unistd.h | head -n1
 #define __NR_exit 93
-</pre>
+```
 

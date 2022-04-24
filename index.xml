@@ -59,7 +59,7 @@ File answer instead, is an ELF executable.</description>
       
       <guid>http://carmelo0x99.github.io/posts/aarch64_first/</guid>
       <description>AArch64 Index Home Let&amp;rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Let&amp;rsquo;s break the ice &amp;hellip; or, let&amp;rsquo;s quickly generate some assembly code and run it.Our very first program Let&amp;rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code.Copy and paste the following code into a file named answer.s.
-The program can be assembled and linked with as and ld from binutils:</description>
+/* File: answer.s Purpose: runs and, immediately, exits while leaving a return code that can be displayed through the OS Example: $ .</description>
     </item>
     
     <item>
