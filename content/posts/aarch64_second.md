@@ -26,7 +26,7 @@ tags:
 In the process we've followed not only we've generated file `answer.s` but `answer.o` and `answer` as well. You may be wondering what are those?</br>
 `answer.o` is the object-file, it complies with the ELF format (`man elf`). Its contents can be displayed through the `objdump` command.
 
-<pre>
+```
 $ <b>file answer.o</b>
 answer.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped
 
@@ -40,11 +40,11 @@ Disassembly of section .text:
    4:	d2800ba8 	mov	x8, #0x5d                  	// #93
    8:	d4000001 	svc	#0x0
 ...
-</pre>
+```
 
 File `answer` instead, is an ELF **executable**. `readelf` shows detailed information on its contents.
 
-<pre>
+```
 $ <b>file answer</b>
 answer: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped
 
@@ -76,7 +76,7 @@ Symbol table '.symtab' contains 12 entries:
     11: 0000000000410088     0 NOTYPE  GLOBAL DEFAULT    1 _end
 
 No version information found in this file.
-</pre>
+```
 
 **NOTE**: both files contain `debug_info`, this will be useful when running the executable through `gdb`.
 
