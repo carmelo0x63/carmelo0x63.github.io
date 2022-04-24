@@ -25,7 +25,7 @@ tags:
 ## Cross-compilation
 Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (`qemu-user`) and the GNU C compiler for AArch64 (`gcc-aarch64-linux-gnu`), assembling and linking native code is a breeze.</br>
 Starting from exactly the source code let's run:
-<pre>
+```
 $ <b>aarch64-linux-gnu-as answer.s</b>
 
 $ <b>aarch64-linux-gnu-gcc -static -o answer a.out</b>
@@ -34,10 +34,10 @@ $ <b>./answer</b>
 
 $ <b>echo $?</b>
 42
-</pre>
+```
 
 Of course, **no tricks**, the output above has been collected on:
-<pre>
+```
 $ <b>uname -m</b>
 x86_64
 
@@ -46,5 +46,5 @@ a.out: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), not stripped
 
 $ <b>file answer</b>
 answer: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, not stripped
-</pre>
+```
 

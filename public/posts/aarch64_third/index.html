@@ -37,7 +37,7 @@
 <meta itemprop="name" content="AArch64 assembly - part 3">
 <meta itemprop="description" content="A short series of articles re. Assembly on ARM64"><meta itemprop="datePublished" content="2022-02-02T11:07:00+01:00" />
 <meta itemprop="dateModified" content="2022-02-02T11:07:00+01:00" />
-<meta itemprop="wordCount" content="365">
+<meta itemprop="wordCount" content="836">
 <meta itemprop="keywords" content="assembly,arm64,aarch64," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="AArch64 assembly - part 3"/>
 <meta name="twitter:description" content="A short series of articles re. Assembly on ARM64"/>
@@ -127,40 +127,124 @@
 <p>We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if <code>GDB</code> wasn&rsquo;t mentioned here.<!-- raw HTML omitted -->
 <code>GDB</code> is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine. It is truly the microscope with which we can see what our tiny program is doing in real-time.<!-- raw HTML omitted -->
 Let&rsquo;s run our executable through <code>gdb</code>. Remember, the file must have been assembled with option <code>-g</code> enabled!<!-- raw HTML omitted --></p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Before doing anything else, let&rsquo;s associate a <strong>breakpoint</strong> with the symbol <code>_start</code> (see the <a href="answer.s">source code</a> in case you need to refresh your memory).</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p><strong>NOTE</strong>: a <em>breakpoint</em> stops the execution of a program at a given point. From there the execution can be controlled step-by-step for instance.<!-- raw HTML omitted -->
+<pre tabindex="0"><code>$ &lt;b&gt;gdb answer&lt;/b&gt;
+GNU gdb (Debian 10.1-1.7) 10.1.90.20210103-git
+...
+Reading symbols from answer...
+(gdb)
+</code></pre><p>Before doing anything else, let&rsquo;s associate a <strong>breakpoint</strong> with the symbol <code>_start</code> (see the <a href="answer.s">source code</a> in case you need to refresh your memory).</p>
+<pre tabindex="0"><code>(gdb) &lt;b&gt;break _start&lt;/b&gt;
+Breakpoint 1 at 0x400078: file answer.s, line 15.
+</code></pre><p><strong>NOTE</strong>: a <em>breakpoint</em> stops the execution of a program at a given point. From there the execution can be controlled step-by-step for instance.<!-- raw HTML omitted -->
 Finally, we <code>run</code> our program as follows:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>The output shows that execution has stopped at <code>Breakpoint 1</code>, corresponding to label <code>_start</code> and that the next step will be running the code shown below. <code>15</code> represents the row number in the source code.<!-- raw HTML omitted -->
+<pre tabindex="0"><code>(gdb) &lt;b&gt;run&lt;/b&gt;
+Starting program: /.../answer
+
+Breakpoint 1, _start () at answer.s:15
+15	    mov x0, #42  // x0 ←  42
+</code></pre><p>The output shows that execution has stopped at <code>Breakpoint 1</code>, corresponding to label <code>_start</code> and that the next step will be running the code shown below. <code>15</code> represents the row number in the source code.<!-- raw HTML omitted -->
 Taking a look at the registers will show that their contents has been reset and nothing has been changed yet.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>To move forward we need to tell <code>gdb</code> to run the next instruction: <code>mov x0, #42</code>.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Again, it&rsquo;ll execute our command then stop showing the following step.
+<pre tabindex="0"><code>(gdb) &lt;b&gt;info registers&lt;/b&gt;
+&lt;b&gt;x0             0x0                 0&lt;/b&gt;
+x1             0x0                 0
+x2             0x0                 0
+x3             0x0                 0
+x4             0x0                 0
+x5             0x0                 0
+x6             0x0                 0
+x7             0x0                 0
+&lt;b&gt;x8             0x0                 0&lt;/b&gt;
+x9             0x0                 0
+...
+pc             0x400078            0x400078 &lt;_start&gt;
+...
+</code></pre><p>To move forward we need to tell <code>gdb</code> to run the next instruction: <code>mov x0, #42</code>.</p>
+<pre tabindex="0"><code>(gdb) &lt;b&gt;next&lt;/b&gt;
+16	    mov x8, #93  // x8 ←  93 (__NR_exit)
+</code></pre><p>Again, it&rsquo;ll execute our command then stop showing the following step.
 Not unexpectedly, by examining the registers we&rsquo;ll show that something has indeed changed:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Specifically, <code>x0</code> now contains the value <code>0x2a</code> (corresponding to decimal <code>42</code>). Likewise <code>pc</code>, the <strong>Program Counter</strong>, displays the address of the next instruction in memory, or <code>_start</code> = 0x400078 + 4 bytes = 0x40007c.<!-- raw HTML omitted -->Once again we type <code>next</code> to run <code>mov x8, #93</code>. <code>gdb</code> will execute the instruction and immediately stop.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>The register status has been updated with new data (<code>0x5d</code> in register <code>x8</code>) and <code>pc</code> has been incremented.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Finally, by typing <code>next</code> one more time, the last instruction (<code>svc #0</code>) will be run and execution will stop.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<h3 id="gdb-help">GDB help</h3>
+<pre tabindex="0"><code>(gdb) &lt;b&gt;info registers&lt;/b&gt;
+&lt;b&gt;x0             0x2a                42&lt;/b&gt;
+x1             0x0                 0
+x2             0x0                 0
+x3             0x0                 0
+x4             0x0                 0
+x5             0x0                 0
+x6             0x0                 0
+x7             0x0                 0
+&lt;b&gt;x8             0x0                 0&lt;/b&gt;
+x9             0x0                 0
+...
+pc             0x40007c            0x40007c &lt;_start+4&gt;
+...
+</code></pre><p>Specifically, <code>x0</code> now contains the value <code>0x2a</code> (corresponding to decimal <code>42</code>). Likewise <code>pc</code>, the <strong>Program Counter</strong>, displays the address of the next instruction in memory, or <code>_start</code> = 0x400078 + 4 bytes = 0x40007c.<!-- raw HTML omitted -->Once again we type <code>next</code> to run <code>mov x8, #93</code>. <code>gdb</code> will execute the instruction and immediately stop.</p>
+<pre tabindex="0"><code>(gdb) &lt;b&gt;next&lt;/b&gt;
+17	    svc #0       // syscall
+</code></pre><p>The register status has been updated with new data (<code>0x5d</code> in register <code>x8</code>) and <code>pc</code> has been incremented.</p>
+<pre tabindex="0"><code>(gdb) &lt;b&gt;info registers&lt;/b&gt;
+&lt;b&gt;x0             0x2a                42&lt;/b&gt;
+x1             0x0                 0
+x2             0x0                 0
+x3             0x0                 0
+x4             0x0                 0
+x5             0x0                 0
+x6             0x0                 0
+x7             0x0                 0
+&lt;b&gt;x8             0x5d                93&lt;/b&gt;
+x9             0x0                 0
+...
+pc             0x400080            0x400080 &lt;_start+8&gt;
+...
+</code></pre><p>Finally, by typing <code>next</code> one more time, the last instruction (<code>svc #0</code>) will be run and execution will stop.</p>
+<pre tabindex="0"><code>(gdb) &lt;b&gt;next&lt;/b&gt;
+[Inferior 1 (process 69014) exited with code 052]
+</code></pre><h3 id="gdb-help">GDB help</h3>
 <p><code>gdb</code> offers a help command to investigate its many features. The Internet has many tutorials and a number of good books exist.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<ul class="pa0">
+<pre tabindex="0"><code>(gdb) &lt;b&gt;help&lt;/b&gt;
+List of classes of commands:
+aliases -- User-defined aliases of other commands.
+breakpoints -- Making program stop at certain points.
+data -- Examining data.
+files -- Specifying and examining files.
+internals -- Maintenance commands.
+obscure -- Obscure features.
+running -- Running the program.
+stack -- Examining the stack.
+status -- Status inquiries.
+support -- Support facilities.
+text-user-interface -- TUI is the GDB text based interface.
+tracepoints -- Tracing of program execution without stopping the program.
+user-defined -- User-defined commands.
+Type &quot;help&quot; followed by a class name for a list of commands in that class.
+Type &quot;help all&quot; for the list of all commands.
+Type &quot;help&quot; followed by command name for full documentation.
+Type &quot;apropos word&quot; to search for commands related to &quot;word&quot;.
+Type &quot;apropos -v word&quot; for full documentation of commands related to &quot;word&quot;.
+Command name abbreviations are allowed if unambiguous.
+
+
+(gdb) &lt;b&gt;help running&lt;/b&gt;
+Running the program.
+List of commands:
+advance -- Continue the program up to the given location (same form as args for break command).
+attach -- Attach to a process or file outside of GDB.
+continue, fg, c -- Continue program being debugged, after signal or breakpoint.
+detach -- Detach a process or file previously attached.
+detach checkpoint -- Detach from a checkpoint (experimental).
+detach inferiors -- Detach from inferior ID (or list of IDS).
+disconnect -- Disconnect from a target.
+finish, fin -- Execute until selected stack frame returns.
+...
+
+
+(gdb) &lt;b&gt;help next&lt;/b&gt;
+next, n
+Step program, proceeding through subroutine calls.
+Usage: next [N]
+Unlike &quot;step&quot;, if the current source line calls a subroutine,
+this command does not enter the subroutine, but instead steps over
+the call, in effect treating it as a single source line.
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/assembly" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">assembly</a>

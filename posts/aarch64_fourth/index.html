@@ -37,7 +37,7 @@
 <meta itemprop="name" content="AArch64 assembly - part 4">
 <meta itemprop="description" content="A short series of articles re. Assembly on ARM64"><meta itemprop="datePublished" content="2022-02-02T11:08:00+01:00" />
 <meta itemprop="dateModified" content="2022-02-02T11:08:00+01:00" />
-<meta itemprop="wordCount" content="69">
+<meta itemprop="wordCount" content="120">
 <meta itemprop="keywords" content="assembly,arm64,aarch64," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="AArch64 assembly - part 4"/>
 <meta name="twitter:description" content="A short series of articles re. Assembly on ARM64"/>
@@ -126,12 +126,24 @@
 <h2 id="cross-compilation">Cross-compilation</h2>
 <p>Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (<code>qemu-user</code>) and the GNU C compiler for AArch64 (<code>gcc-aarch64-linux-gnu</code>), assembling and linking native code is a breeze.<!-- raw HTML omitted -->
 Starting from exactly the source code let&rsquo;s run:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>Of course, <strong>no tricks</strong>, the output above has been collected on:</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<ul class="pa0">
+<pre tabindex="0"><code>$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt;
+
+$ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt;
+
+$ &lt;b&gt;./answer&lt;/b&gt;
+
+$ &lt;b&gt;echo $?&lt;/b&gt;
+42
+</code></pre><p>Of course, <strong>no tricks</strong>, the output above has been collected on:</p>
+<pre tabindex="0"><code>$ &lt;b&gt;uname -m&lt;/b&gt;
+x86_64
+
+$ &lt;b&gt;file a.out&lt;/b&gt;
+a.out: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), not stripped
+
+$ &lt;b&gt;file answer&lt;/b&gt;
+answer: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, not stripped
+</code></pre><ul class="pa0">
   
    <li class="list">
      <a href="/tags/assembly" class="link f5 grow no-underline br-pill ba ph3 pv2 mb2 dib black sans-serif">assembly</a>

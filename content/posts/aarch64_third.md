@@ -27,36 +27,36 @@ We could be happy with the overall result but, since we're dealing with a very l
 `GDB` is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine. It is truly the microscope with which we can see what our tiny program is doing in real-time.</br>
 Let's run our executable through `gdb`. Remember, the file must have been assembled with option `-g` enabled!</br>
 
-<pre>
+```
 $ <b>gdb answer</b>
 GNU gdb (Debian 10.1-1.7) 10.1.90.20210103-git
 ...
 Reading symbols from answer...
 (gdb)
-</pre>
+```
 
 Before doing anything else, let's associate a **breakpoint** with the symbol `_start` (see the [source code](answer.s) in case you need to refresh your memory).
 
-<pre>
+```
 (gdb) <b>break _start</b>
 Breakpoint 1 at 0x400078: file answer.s, line 15.
-</pre>
+```
 
 **NOTE**: a *breakpoint* stops the execution of a program at a given point. From there the execution can be controlled step-by-step for instance.</br>
 Finally, we `run` our program as follows:
 
-<pre>
+```
 (gdb) <b>run</b>
 Starting program: /.../answer
 
 Breakpoint 1, _start () at answer.s:15
 15	    mov x0, #42  // x0 ←  42
-</pre>
+```
 
 The output shows that execution has stopped at `Breakpoint 1`, corresponding to label `_start` and that the next step will be running the code shown below. `15` represents the row number in the source code.</br>
 Taking a look at the registers will show that their contents has been reset and nothing has been changed yet.
 
-<pre>
+```
 (gdb) <b>info registers</b>
 <b>x0             0x0                 0</b>
 x1             0x0                 0
@@ -71,19 +71,19 @@ x9             0x0                 0
 ...
 pc             0x400078            0x400078 <_start>
 ...
-</pre>
+```
 
 To move forward we need to tell `gdb` to run the next instruction: `mov x0, #42`.
 
-<pre>
+```
 (gdb) <b>next</b>
 16	    mov x8, #93  // x8 ←  93 (__NR_exit)
-</pre>
+```
 
 Again, it'll execute our command then stop showing the following step.
 Not unexpectedly, by examining the registers we'll show that something has indeed changed:
 
-<pre>
+```
 (gdb) <b>info registers</b>
 <b>x0             0x2a                42</b>
 x1             0x0                 0
@@ -98,18 +98,18 @@ x9             0x0                 0
 ...
 pc             0x40007c            0x40007c <_start+4>
 ...
-</pre>
+```
 
 Specifically, `x0` now contains the value `0x2a` (corresponding to decimal `42`). Likewise `pc`, the **Program Counter**, displays the address of the next instruction in memory, or `_start` = 0x400078 + 4 bytes = 0x40007c.</br>Once again we type `next` to run `mov x8, #93`. `gdb` will execute the instruction and immediately stop.
 
-<pre>
+```
 (gdb) <b>next</b>
 17	    svc #0       // syscall
-</pre>
+```
 
 The register status has been updated with new data (`0x5d` in register `x8`) and `pc` has been incremented.
 
-<pre>
+```
 (gdb) <b>info registers</b>
 <b>x0             0x2a                42</b>
 x1             0x0                 0
@@ -124,19 +124,19 @@ x9             0x0                 0
 ...
 pc             0x400080            0x400080 <_start+8>
 ...
-</pre>
+```
 
 Finally, by typing `next` one more time, the last instruction (`svc #0`) will be run and execution will stop.
 
-<pre>
+```
 (gdb) <b>next</b>
 [Inferior 1 (process 69014) exited with code 052]
-</pre>
+```
 
 ### GDB help
 `gdb` offers a help command to investigate its many features. The Internet has many tutorials and a number of good books exist.
 
-<pre>
+```
 (gdb) <b>help</b>
 List of classes of commands:
 aliases -- User-defined aliases of other commands.
@@ -181,5 +181,5 @@ Usage: next [N]
 Unlike "step", if the current source line calls a subroutine,
 this command does not enter the subroutine, but instead steps over
 the call, in effect treating it as a single source line.
-</pre>
+```
 

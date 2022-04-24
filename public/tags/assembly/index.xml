@@ -30,7 +30,7 @@ Arm Instruction Set Reference Guide</description>
       
       <guid>http://carmelo0x99.github.io/posts/aarch64_fourth/</guid>
       <description>AArch64 Index Home Let&amp;rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze.Starting from exactly the source code let&amp;rsquo;s run:
-Of course, no tricks, the output above has been collected on:</description>
+$ &amp;lt;b&amp;gt;aarch64-linux-gnu-as answer.s&amp;lt;/b&amp;gt; $ &amp;lt;b&amp;gt;aarch64-linux-gnu-gcc -static -o answer a.out&amp;lt;/b&amp;gt; $ &amp;lt;b&amp;gt;.</description>
     </item>
     
     <item>
