@@ -67,21 +67,12 @@ user@armi $ docker inspect carmelo0x99/hellogo:x86_64 | grep Architecture
         "Architecture": "amd64",
 ```
 
-### Enters buildx
+### Enter buildx
 ```
 user@x86_64 $ docker buildx version
 github.com/docker/buildx v0.5.1-docker 11057da37336192bfc57d81e02359ba7ba848e4a
 
 user@x86_64 $ export DOCKER_CLI_EXPERIMENTAL=enabled
-
-<!--user@x86_64 $ docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
-Unable to find image 'docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64' locally
-a7996909642ee92942dcd6cff44b9b95f08dad64: Pulling from docker/binfmt
-5d6ca6c8ba77: Pull complete
-b26a8e2c75fc: Pull complete
-3436361ddd98: Pull complete
-Digest: sha256:758ca0563f371b384cfd67b6590b5be2dc024fef45bc14a050ae104f0caad14e
-Status: Downloaded newer image for docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64-->
 
 user@x86_64 $ docker buildx create --use --name builderx
 builderx
