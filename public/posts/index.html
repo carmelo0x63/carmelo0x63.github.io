@@ -7,7 +7,7 @@
     <title>carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.92.1" />
+    <meta name="generator" content="Hugo 0.101.0" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -91,12 +91,30 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
+      <a href="/posts/cibot_telegram_api/" class="link black dim">
+        CIBot: CounterIntelligence Bot, a cheap approach at keeping your home network under control
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      I know shouldn&rsquo;t have been but I was genuinely surprised when, upon login onto my tiny home server, I was greeted by:
+There have been 400-something unauthorized accesses since your last visit. 400-something?!? Shouldn&rsquo;t a siren have gone off, red lights flashing in my lab? Of course no. Not unless I&rsquo;d set up something like that&hellip; who thought anyone would be interested in my minuscule &ldquo;server&rdquo;? No data, nothing to steal&hellip; nothing iapparently interesting but CPU cycles and RAM!
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
       <a href="/posts/aarch64_resources/" class="link black dim">
         AArch64 assembly - part 5
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   AArch64 Exploring AArch64 assembler
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources AArch64 Exploring AArch64 assembler
 A Guide to ARM64/AArch64 Assembly on Linux with Shellcodes and Cryptography
 &lsquo;Hello World&rsquo; in ARM64 Assembly
 Writing ARM Assembly Programs
@@ -120,8 +138,8 @@ Arm Instruction Set Reference Guide
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze.Starting from exactly the source code let&rsquo;s run:
-$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt; $ &lt;b&gt;.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze. Starting from exactly the source code let&rsquo;s run:
+$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt; $ &lt;b&gt;./answer&lt;/b&gt; $ &lt;b&gt;echo $?
     </div>
   </div>
 </div>
@@ -138,7 +156,7 @@ $ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Under the microscope We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if GDB wasn&rsquo;t mentioned here.GDB is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Under the microscope We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if GDB wasn&rsquo;t mentioned here. GDB is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine.
     </div>
   </div>
 </div>
@@ -155,8 +173,8 @@ $ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Under the surface In the process we&rsquo;ve followed not only we&rsquo;ve generated file answer.s but answer.o and answer as well. You may be wondering what are those?answer.o is the object-file, it complies with the ELF format (man elf). Its contents can be displayed through the objdump command.
-File answer instead, is an ELF executable.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Under the surface In the process we&rsquo;ve followed not only we&rsquo;ve generated file answer.s but answer.o and answer as well. You may be wondering what are those? answer.o is the object-file, it complies with the ELF format (man elf). Its contents can be displayed through the objdump command.
+$ &lt;b&gt;file answer.o&lt;/b&gt; answer.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped $ &lt;b&gt;objdump -D answer.
     </div>
   </div>
 </div>
@@ -173,7 +191,8 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Let&rsquo;s break the ice &hellip; or, let&rsquo;s quickly generate some assembly code and run it.Our very first program Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code.Copy and paste the following code into a file named answer.s.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Let&rsquo;s break the ice &hellip; or, let&rsquo;s quickly generate some assembly code and run it.
+Our very first program Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code. Copy and paste the following code into a file named answer.s.
 /* File: answer.s Purpose: runs and, immediately, exits while leaving a return code that can be displayed through the OS Example: $ .
     </div>
   </div>
@@ -191,7 +210,7 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Background I&rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here.Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment.I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Background I&rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here. Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment. I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.
     </div>
   </div>
 </div>
@@ -209,7 +228,7 @@ File answer instead, is an ELF executable.
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
- x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello.
+x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: ARMv7 Processor rev 4 (v7l) On x86_64 hello.
     </div>
   </div>
 </div>
@@ -246,28 +265,7 @@ I&rsquo;d always been curious about Shodan but not that curious to break into so
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       Nodebook Nodebook is a multi-language REPL offering both a web UI and a CLI interface. Github: https://github.com/netgusto/nodebook
 NOTE: REPL: Read-Eval-Print Loop
-Set up OS (e.g. CentOS 7) sudo sed -i &quot;s/^#PermitRootLogin yes/PermitRootLogin prohibit-password/&quot; /etc/ssh/sshd_config sudo sed -i &quot;s/^#UseDNS yes/UseDNS no/&quot; /etc/ssh/sshd_config sudo systemctl restart sshd sudo firewall-cmd --permanent --add-port=9001/tcp &amp;&amp; sudo firewall-cmd --reload IMPORTANT: be aware of any security implcations when running such an application. There&rsquo;s always a chance to run malicious code that can harm the guest OS.
-    </div>
-  </div>
-</div>
-
-        </div>
-      
-        <div class="relative w-100 w-30-l mb4 bg-white">
-          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
-  <div class="bg-white mb3 pa4 gray overflow-hidden">
-    <span class="f6 db">Posts</span>
-    <h1 class="f3 near-black">
-      <a href="/posts/docker_in_depth/" class="link black dim">
-        Docker in depth: namespaces, cgroups, images from scratch
-      </a>
-    </h1>
-    <div class="nested-links f5 lh-copy nested-copy-line-height">
-      INDEX
- Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
-NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
-user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; carmelo0x99/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
-Likewise, docker history can show how the image had been built:
+Set up OS (e.g. CentOS 7) sudo sed -i &#34;s/^#PermitRootLogin yes/PermitRootLogin prohibit-password/&#34; /etc/ssh/sshd_config sudo sed -i &#34;s/^#UseDNS yes/UseDNS no/&#34; /etc/ssh/sshd_config sudo systemctl restart sshd sudo firewall-cmd --permanent --add-port=9001/tcp &amp;&amp; sudo firewall-cmd --reload IMPORTANT: be aware of any security implcations when running such an application. There&rsquo;s always a chance to run malicious code that can harm the guest OS.
     </div>
   </div>
 </div>

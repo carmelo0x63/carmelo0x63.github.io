@@ -7,11 +7,11 @@
     <title>Docker in depth: namespaces, cgroups, images from scratch | carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="INDEX
- Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+Images and containers Namespaces Cgroups Images from scratch Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
 NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
-user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; carmelo0x99/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+user@laptop $ docker inspect --format=&#34;{{json .RootFS.Layers}}&#34; carmelo0x99/goweb:latest [&#34;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&#34;, &#34;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&#34;, &#34;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&#34;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
 Likewise, docker history can show how the image had been built:">
-    <meta name="generator" content="Hugo 0.92.1" />
+    <meta name="generator" content="Hugo 0.101.0" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -33,9 +33,9 @@ Likewise, docker history can show how the image had been built:">
     
     <meta property="og:title" content="Docker in depth: namespaces, cgroups, images from scratch" />
 <meta property="og:description" content="INDEX
- Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+Images and containers Namespaces Cgroups Images from scratch Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
 NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
-user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; carmelo0x99/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+user@laptop $ docker inspect --format=&#34;{{json .RootFS.Layers}}&#34; carmelo0x99/goweb:latest [&#34;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&#34;, &#34;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&#34;, &#34;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&#34;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
 Likewise, docker history can show how the image had been built:" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://carmelo0x99.github.io/posts/docker_in_depth/" /><meta property="article:section" content="posts" />
@@ -44,18 +44,18 @@ Likewise, docker history can show how the image had been built:" />
 
 <meta itemprop="name" content="Docker in depth: namespaces, cgroups, images from scratch">
 <meta itemprop="description" content="INDEX
- Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+Images and containers Namespaces Cgroups Images from scratch Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
 NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
-user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; carmelo0x99/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+user@laptop $ docker inspect --format=&#34;{{json .RootFS.Layers}}&#34; carmelo0x99/goweb:latest [&#34;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&#34;, &#34;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&#34;, &#34;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&#34;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
 Likewise, docker history can show how the image had been built:"><meta itemprop="datePublished" content="2020-03-20T12:00:00+01:00" />
 <meta itemprop="dateModified" content="2020-03-20T12:00:00+01:00" />
 <meta itemprop="wordCount" content="997">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Docker in depth: namespaces, cgroups, images from scratch"/>
 <meta name="twitter:description" content="INDEX
- Images and containers Namespaces Cgroups Images from scratch  Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+Images and containers Namespaces Cgroups Images from scratch Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
 NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
-user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; carmelo0x99/goweb:latest [&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;, &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;, &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+user@laptop $ docker inspect --format=&#34;{{json .RootFS.Layers}}&#34; carmelo0x99/goweb:latest [&#34;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&#34;, &#34;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&#34;, &#34;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&#34;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
 Likewise, docker history can show how the image had been built:"/>
 
 	
@@ -140,33 +140,33 @@ Likewise, docker history can show how the image had been built:"/>
 <p>Let&rsquo;s take a closer look at what&rsquo;s in an image.</p>
 <p><strong>NOTE</strong>: I&rsquo;m filtering out lots of info by using Docker&rsquo;s <a href="https://docs.docker.com/config/formatting/">format command</a>.
 {% raw %}</p>
-<pre tabindex="0"><code>user@laptop $ docker inspect --format=&quot;{{json .RootFS.Layers}}&quot; carmelo0x99/goweb:latest
-[&quot;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&quot;,
- &quot;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&quot;,
- &quot;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&quot;]
+<pre tabindex="0"><code>user@laptop $ docker inspect --format=&#34;{{json .RootFS.Layers}}&#34; carmelo0x99/goweb:latest
+[&#34;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&#34;,
+ &#34;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&#34;,
+ &#34;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&#34;]
 </code></pre><p>{% endraw %}
 One can see that, for instance, the image above is made up of three different layers.</p>
 <p>Likewise, <code>docker history</code> can show how the image had been built:</p>
 <pre tabindex="0"><code>user@laptop $ docker history carmelo0x99/goweb:latest
 IMAGE          CREATED        CREATED BY                                      SIZE    COMMENT
-ccf5bf7f5979   7 days ago     /bin/sh -c #(nop)  CMD [&quot;./main.go&quot;]            0B
+ccf5bf7f5979   7 days ago     /bin/sh -c #(nop)  CMD [&#34;./main.go&#34;]            0B
 &lt;missing&gt;      7 days ago     /bin/sh -c #(nop) COPY file:fe2451faf4c4dbce…   7.47MB
 &lt;missing&gt;      7 days ago     /bin/sh -c #(nop) WORKDIR /app                  0B
 &lt;missing&gt;      7 days ago     /bin/sh -c mkdir /app                           0B
-&lt;missing&gt;      2 months ago   /bin/sh -c #(nop)  CMD [&quot;/bin/sh&quot;]              0B
+&lt;missing&gt;      2 months ago   /bin/sh -c #(nop)  CMD [&#34;/bin/sh&#34;]              0B
 &lt;missing&gt;      2 months ago   /bin/sh -c #(nop) ADD file:e69d441d729412d24…   5.59MB
 </code></pre><p>A container runs off the image but is an entirely different object.</p>
 <pre tabindex="0"><code>user@laptop $ docker container ls
 CONTAINER ID   IMAGE                   COMMAND       CREATED          STATUS          PORTS   NAMES
-66df9337ad51   carmelo0x99/goweb:latest   &quot;./main.go&quot;   14 minutes ago   Up 14 minutes           beautiful_williamson
+66df9337ad51   carmelo0x99/goweb:latest   &#34;./main.go&#34;   14 minutes ago   Up 14 minutes           beautiful_williamson
 </code></pre><p>In reality, the application is obviously running on our host, we can see how it&rsquo;s identified by its PID:</p>
 <pre tabindex="0"><code>user@laptop $ ps -ef | grep main.go | grep -v grep
 root      3993  3970  0 17:38 ?        00:00:00 ./main.go
 
 user@laptop $ docker inspect 66df9337ad51 | grep -i pid
-            &quot;Pid&quot;: 3993,
-            &quot;PidMode&quot;: &quot;&quot;,
-            &quot;PidsLimit&quot;: null,
+            &#34;Pid&#34;: 3993,
+            &#34;PidMode&#34;: &#34;&#34;,
+            &#34;PidsLimit&#34;: null,
 </code></pre><p>We can also connect to the running container. From within, it looks as if we&rsquo;re in a totally separate environment:</p>
 <pre tabindex="0"><code>user@laptop $ docker exec -it 66df sh
 
@@ -277,14 +277,14 @@ total 2.7M
 <pre tabindex="0"><code>FROM scratch
 ADD alpine-minirootfs-3.11.5-x86_64.tar.gz /
 COPY os-release /etc/
-CMD [&quot;/bin/sh&quot;]
+CMD [&#34;/bin/sh&#34;]
 </code></pre><p><code>os-release</code>:</p>
-<pre tabindex="0"><code>NAME=&quot;My cool-and-small image&quot;
+<pre tabindex="0"><code>NAME=&#34;My cool-and-small image&#34;
 ID=alpine
 VERSION_ID=1.0
-PRETTY_NAME=&quot;Based on Alpine Linux v3.11&quot;
-HOME_URL=&quot;https://alpinelinux.org/&quot;
-BUG_REPORT_URL=&quot;https://bugs.alpinelinux.org/&quot;
+PRETTY_NAME=&#34;Based on Alpine Linux v3.11&#34;
+HOME_URL=&#34;https://alpinelinux.org/&#34;
+BUG_REPORT_URL=&#34;https://bugs.alpinelinux.org/&#34;
 </code></pre><p>We can start the build process as follows now:</p>
 <pre tabindex="0"><code>user@laptop docker build -t carmelo0x99/scratch:1.0 .
 Sending build context to Docker daemon  2.728MB
@@ -294,7 +294,7 @@ Step 2/4 : ADD alpine-minirootfs-3.11.5-x86_64.tar.gz /
  ---&gt; 5beb49a29512
 Step 3/4 : COPY os-release /etc/
  ---&gt; 034d3918f9ac
-Step 4/4 : CMD [&quot;/bin/sh&quot;]
+Step 4/4 : CMD [&#34;/bin/sh&#34;]
  ---&gt; Running in a494bc027971
 Removing intermediate container a494bc027971
  ---&gt; 786e178aee95
@@ -308,12 +308,12 @@ carmelo0x99/scratch    1.0                                        786e178aee95  
 </code></pre><p>Next and last step is to verify that the image is behaving as intended:</p>
 <pre tabindex="0"><code>user@laptop docker run -it carmelo0x99/scratch:1.0 sh
 / # cat /etc/os-release
-NAME=&quot;My cool-and-small image&quot;
+NAME=&#34;My cool-and-small image&#34;
 ID=alpine
 VERSION_ID=1.0
-PRETTY_NAME=&quot;Based on Alpine Linux v3.11&quot;
-HOME_URL=&quot;https://alpinelinux.org/&quot;
-BUG_REPORT_URL=&quot;https://bugs.alpinelinux.org/&quot;
+PRETTY_NAME=&#34;Based on Alpine Linux v3.11&#34;
+HOME_URL=&#34;https://alpinelinux.org/&#34;
+BUG_REPORT_URL=&#34;https://bugs.alpinelinux.org/&#34;
 </code></pre><ul class="pa0">
   
 </ul>

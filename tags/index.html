@@ -7,7 +7,7 @@
     <title>carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.92.1" />
+    <meta name="generator" content="Hugo 0.101.0" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -106,7 +106,7 @@
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   AArch64 Exploring AArch64 assembler
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources AArch64 Exploring AArch64 assembler
 A Guide to ARM64/AArch64 Assembly on Linux with Shellcodes and Cryptography
 &lsquo;Hello World&rsquo; in ARM64 Assembly
 Writing ARM Assembly Programs
@@ -128,8 +128,8 @@ Arm Instruction Set Reference Guide
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze.Starting from exactly the source code let&rsquo;s run:
-$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt; $ &lt;b&gt;.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze. Starting from exactly the source code let&rsquo;s run:
+$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt; $ &lt;b&gt;./answer&lt;/b&gt; $ &lt;b&gt;echo $?
     </div>
   </div>
 </div>
@@ -144,7 +144,7 @@ $ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Under the microscope We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if GDB wasn&rsquo;t mentioned here.GDB is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Under the microscope We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if GDB wasn&rsquo;t mentioned here. GDB is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine.
     </div>
   </div>
 </div>
@@ -159,8 +159,8 @@ $ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Under the surface In the process we&rsquo;ve followed not only we&rsquo;ve generated file answer.s but answer.o and answer as well. You may be wondering what are those?answer.o is the object-file, it complies with the ELF format (man elf). Its contents can be displayed through the objdump command.
-File answer instead, is an ELF executable.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Under the surface In the process we&rsquo;ve followed not only we&rsquo;ve generated file answer.s but answer.o and answer as well. You may be wondering what are those? answer.o is the object-file, it complies with the ELF format (man elf). Its contents can be displayed through the objdump command.
+$ &lt;b&gt;file answer.o&lt;/b&gt; answer.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped $ &lt;b&gt;objdump -D answer.
     </div>
   </div>
 </div>
@@ -175,7 +175,8 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Let&rsquo;s break the ice &hellip; or, let&rsquo;s quickly generate some assembly code and run it.Our very first program Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code.Copy and paste the following code into a file named answer.s.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Let&rsquo;s break the ice &hellip; or, let&rsquo;s quickly generate some assembly code and run it.
+Our very first program Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code. Copy and paste the following code into a file named answer.s.
 /* File: answer.s Purpose: runs and, immediately, exits while leaving a return code that can be displayed through the OS Example: $ .
     </div>
   </div>
@@ -191,7 +192,7 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Background I&rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here.Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment.I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Background I&rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here. Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment. I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.
     </div>
   </div>
 </div>
@@ -213,7 +214,7 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   AArch64 Exploring AArch64 assembler
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources AArch64 Exploring AArch64 assembler
 A Guide to ARM64/AArch64 Assembly on Linux with Shellcodes and Cryptography
 &lsquo;Hello World&rsquo; in ARM64 Assembly
 Writing ARM Assembly Programs
@@ -235,8 +236,8 @@ Arm Instruction Set Reference Guide
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze.Starting from exactly the source code let&rsquo;s run:
-$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt; $ &lt;b&gt;.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze. Starting from exactly the source code let&rsquo;s run:
+$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt; $ &lt;b&gt;./answer&lt;/b&gt; $ &lt;b&gt;echo $?
     </div>
   </div>
 </div>
@@ -251,7 +252,7 @@ $ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Under the microscope We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if GDB wasn&rsquo;t mentioned here.GDB is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Under the microscope We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if GDB wasn&rsquo;t mentioned here. GDB is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine.
     </div>
   </div>
 </div>
@@ -266,8 +267,8 @@ $ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Under the surface In the process we&rsquo;ve followed not only we&rsquo;ve generated file answer.s but answer.o and answer as well. You may be wondering what are those?answer.o is the object-file, it complies with the ELF format (man elf). Its contents can be displayed through the objdump command.
-File answer instead, is an ELF executable.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Under the surface In the process we&rsquo;ve followed not only we&rsquo;ve generated file answer.s but answer.o and answer as well. You may be wondering what are those? answer.o is the object-file, it complies with the ELF format (man elf). Its contents can be displayed through the objdump command.
+$ &lt;b&gt;file answer.o&lt;/b&gt; answer.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped $ &lt;b&gt;objdump -D answer.
     </div>
   </div>
 </div>
@@ -282,7 +283,8 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Let&rsquo;s break the ice &hellip; or, let&rsquo;s quickly generate some assembly code and run it.Our very first program Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code.Copy and paste the following code into a file named answer.s.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Let&rsquo;s break the ice &hellip; or, let&rsquo;s quickly generate some assembly code and run it.
+Our very first program Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code. Copy and paste the following code into a file named answer.s.
 /* File: answer.s Purpose: runs and, immediately, exits while leaving a return code that can be displayed through the OS Example: $ .
     </div>
   </div>
@@ -298,7 +300,7 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Background I&rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here.Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment.I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Background I&rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here. Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment. I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.
     </div>
   </div>
 </div>
@@ -320,7 +322,7 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   AArch64 Exploring AArch64 assembler
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources AArch64 Exploring AArch64 assembler
 A Guide to ARM64/AArch64 Assembly on Linux with Shellcodes and Cryptography
 &lsquo;Hello World&rsquo; in ARM64 Assembly
 Writing ARM Assembly Programs
@@ -342,8 +344,8 @@ Arm Instruction Set Reference Guide
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze.Starting from exactly the source code let&rsquo;s run:
-$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt; $ &lt;b&gt;.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Cross-compilation Interestingly, one does not need to own an ARM64 processor. With the help of QEMU user mode emulation (qemu-user) and the GNU C compiler for AArch64 (gcc-aarch64-linux-gnu), assembling and linking native code is a breeze. Starting from exactly the source code let&rsquo;s run:
+$ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-gcc -static -o answer a.out&lt;/b&gt; $ &lt;b&gt;./answer&lt;/b&gt; $ &lt;b&gt;echo $?
     </div>
   </div>
 </div>
@@ -358,7 +360,7 @@ $ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Under the microscope We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if GDB wasn&rsquo;t mentioned here.GDB is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Under the microscope We could be happy with the overall result but, since we&rsquo;re dealing with a very low-level language, this little intro wouldn&rsquo;t be complete if GDB wasn&rsquo;t mentioned here. GDB is the GNU Debugger and, while it is indeed full of features and almost an OS by itself, it is not as scary as one could imagine.
     </div>
   </div>
 </div>
@@ -373,8 +375,8 @@ $ &lt;b&gt;aarch64-linux-gnu-as answer.s&lt;/b&gt; $ &lt;b&gt;aarch64-linux-gnu-
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Under the surface In the process we&rsquo;ve followed not only we&rsquo;ve generated file answer.s but answer.o and answer as well. You may be wondering what are those?answer.o is the object-file, it complies with the ELF format (man elf). Its contents can be displayed through the objdump command.
-File answer instead, is an ELF executable.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Under the surface In the process we&rsquo;ve followed not only we&rsquo;ve generated file answer.s but answer.o and answer as well. You may be wondering what are those? answer.o is the object-file, it complies with the ELF format (man elf). Its contents can be displayed through the objdump command.
+$ &lt;b&gt;file answer.o&lt;/b&gt; answer.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped $ &lt;b&gt;objdump -D answer.
     </div>
   </div>
 </div>
@@ -389,7 +391,8 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Let&rsquo;s break the ice &hellip; or, let&rsquo;s quickly generate some assembly code and run it.Our very first program Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code.Copy and paste the following code into a file named answer.s.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Let&rsquo;s break the ice &hellip; or, let&rsquo;s quickly generate some assembly code and run it.
+Our very first program Let&rsquo;s write a small assembly program that does nothing but exits by leaving a specific return code. Copy and paste the following code into a file named answer.s.
 /* File: answer.s Purpose: runs and, immediately, exits while leaving a return code that can be displayed through the OS Example: $ .
     </div>
   </div>
@@ -405,7 +408,7 @@ File answer instead, is an ELF executable.
       </a>
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
-      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources   Background I&rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here.Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment.I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.
+      AArch64 Index Home Let&rsquo;s break the ice Under the surface Under the microscope Cross-compilation Resources Background I&rsquo;m not exactly a programmer. I can write some (mostly bad) code, understand a few tiny bits here and there, but I can&rsquo;t claim to be an expert here. Be that as it may, I&rsquo;m curious, I&rsquo;m an avid learner, I sweat my way through new things until I reach that A-HA moment. I love tutorials on the Internet because, that&rsquo;s my hope, one can quickly be projected into the practical parts of a new topic.
     </div>
   </div>
 </div>

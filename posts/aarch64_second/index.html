@@ -7,7 +7,7 @@
     <title>AArch64 assembly - part 2 | carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="A short series of articles re. Assembly on ARM64">
-    <meta name="generator" content="Hugo 0.92.1" />
+    <meta name="generator" content="Hugo 0.101.0" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -37,7 +37,7 @@
 <meta itemprop="name" content="AArch64 assembly - part 2">
 <meta itemprop="description" content="A short series of articles re. Assembly on ARM64"><meta itemprop="datePublished" content="2022-02-02T11:05:00+01:00" />
 <meta itemprop="dateModified" content="2022-02-02T11:05:00+01:00" />
-<meta itemprop="wordCount" content="91">
+<meta itemprop="wordCount" content="324">
 <meta itemprop="keywords" content="assembly,arm64,aarch64," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="AArch64 assembly - part 2"/>
 <meta name="twitter:description" content="A short series of articles re. Assembly on ARM64"/>
@@ -126,12 +126,52 @@
 <h2 id="under-the-surface">Under the surface</h2>
 <p>In the process we&rsquo;ve followed not only we&rsquo;ve generated file <code>answer.s</code> but <code>answer.o</code> and <code>answer</code> as well. You may be wondering what are those?<!-- raw HTML omitted -->
 <code>answer.o</code> is the object-file, it complies with the ELF format (<code>man elf</code>). Its contents can be displayed through the <code>objdump</code> command.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>File <code>answer</code> instead, is an ELF <strong>executable</strong>. <code>readelf</code> shows detailed information on its contents.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p><strong>NOTE</strong>: both files contain <code>debug_info</code>, this will be useful when running the executable through <code>gdb</code>.</p>
+<pre tabindex="0"><code>$ &lt;b&gt;file answer.o&lt;/b&gt;
+answer.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), with debug_info, not stripped
+
+$ &lt;b&gt;objdump -D answer.o&lt;/b&gt;
+answer.o:     file format elf64-littleaarch64
+
+Disassembly of section .text:
+
+0000000000000000 &lt;_start&gt;:
+   0:	d2800540 	mov	x0, #0x2a                  	// #42
+   4:	d2800ba8 	mov	x8, #0x5d                  	// #93
+   8:	d4000001 	svc	#0x0
+...
+</code></pre><p>File <code>answer</code> instead, is an ELF <strong>executable</strong>. <code>readelf</code> shows detailed information on its contents.</p>
+<pre tabindex="0"><code>$ &lt;b&gt;file answer&lt;/b&gt;
+answer: ELF 64-bit LSB executable, ARM aarch64, version 1 (SYSV), statically linked, with debug_info, not stripped
+
+$ &lt;b&gt;readelf -a answer&lt;/b&gt;
+ELF Header:
+  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00
+  Class:                             ELF64
+  Data:                              2&#39;s complement, little endian
+  Version:                           1 (current)
+  OS/ABI:                            UNIX - System V
+  ABI Version:                       0
+  Type:                              EXEC (Executable file)
+  Machine:                           AArch64
+...
+
+Symbol table &#39;.symtab&#39; contains 12 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND
+     1: 0000000000400078     0 SECTION LOCAL  DEFAULT    1
+     2: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS answer.o
+     3: 0000000000400078     0 NOTYPE  LOCAL  DEFAULT    1 $x
+     4: 0000000000410084     0 NOTYPE  GLOBAL DEFAULT    1 _bss_end__
+     5: 0000000000410084     0 NOTYPE  GLOBAL DEFAULT    1 __bss_start__
+     6: 0000000000410084     0 NOTYPE  GLOBAL DEFAULT    1 __bss_end__
+     7: 0000000000400078     0 NOTYPE  GLOBAL DEFAULT    1 _start
+     8: 0000000000410084     0 NOTYPE  GLOBAL DEFAULT    1 __bss_start
+     9: 0000000000410088     0 NOTYPE  GLOBAL DEFAULT    1 __end__
+    10: 0000000000410084     0 NOTYPE  GLOBAL DEFAULT    1 _edata
+    11: 0000000000410088     0 NOTYPE  GLOBAL DEFAULT    1 _end
+
+No version information found in this file.
+</code></pre><p><strong>NOTE</strong>: both files contain <code>debug_info</code>, this will be useful when running the executable through <code>gdb</code>.</p>
 <ul class="pa0">
   
    <li class="list">

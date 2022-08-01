@@ -7,11 +7,11 @@
     <title>Docker Swarm on ClusterHAT | carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="INDEX
- The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally!  NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
+The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally! NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
 Installation of ClusterHAT has been described in a previous post.
 The basics: hardware architecture Controller:
 pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:">
-    <meta name="generator" content="Hugo 0.92.1" />
+    <meta name="generator" content="Hugo 0.101.0" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -33,7 +33,7 @@ pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:">
     
     <meta property="og:title" content="Docker Swarm on ClusterHAT" />
 <meta property="og:description" content="INDEX
- The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally!  NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
+The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally! NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
 Installation of ClusterHAT has been described in a previous post.
 The basics: hardware architecture Controller:
 pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:" />
@@ -44,7 +44,7 @@ pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:" />
 
 <meta itemprop="name" content="Docker Swarm on ClusterHAT">
 <meta itemprop="description" content="INDEX
- The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally!  NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
+The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally! NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
 Installation of ClusterHAT has been described in a previous post.
 The basics: hardware architecture Controller:
 pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:"><meta itemprop="datePublished" content="2020-03-10T12:00:00+01:00" />
@@ -53,7 +53,7 @@ pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:"><meta 
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Docker Swarm on ClusterHAT"/>
 <meta name="twitter:description" content="INDEX
- The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally!  NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
+The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally! NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
 Installation of ClusterHAT has been described in a previous post.
 The basics: hardware architecture Controller:
 pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:"/>
@@ -158,30 +158,30 @@ FROM arm32v6/alpine
 RUN mkdir /app
 WORKDIR /app
 COPY --from=builder /app/main.go ./
-CMD [&quot;./main.go&quot;]
+CMD [&#34;./main.go&#34;]
 </code></pre><p><strong>NOTE</strong>: the code above is for a <a href="https://docs.docker.com/develop/develop-images/multistage-build/">multi-stage build</a>. Read more on the topic on <a href="https://docs.docker.com/develop/develop-images/multistage-build/">docs.docker.com</a>.</p>
 <p><code>main.go</code>:</p>
 <pre tabindex="0"><code>package main
 
 import (
-    &quot;net/http&quot;
-    &quot;os&quot;
-    &quot;runtime&quot;
-    &quot;strings&quot;
+    &#34;net/http&#34;
+    &#34;os&#34;
+    &#34;runtime&#34;
+    &#34;strings&#34;
 )
 
 func sayHello(w http.ResponseWriter, r *http.Request) {
     hostname, _ := os.Hostname()
     message := r.URL.Path
-    message = strings.TrimPrefix(message, &quot;/&quot;)
-    message = &quot;This is &quot; + hostname + &quot; running on &quot; + runtime.GOOS + &quot;/&quot; + runtime.GOARCH + &quot; saying: &quot; + message + &quot;\n&quot;
+    message = strings.TrimPrefix(message, &#34;/&#34;)
+    message = &#34;This is &#34; + hostname + &#34; running on &#34; + runtime.GOOS + &#34;/&#34; + runtime.GOARCH + &#34; saying: &#34; + message + &#34;\n&#34;
 
     w.Write([]byte(message))
 }
 
 func main() {
-    http.HandleFunc(&quot;/&quot;, sayHello)
-    if err := http.ListenAndServe(&quot;:8080&quot;, nil); err != nil {
+    http.HandleFunc(&#34;/&#34;, sayHello)
+    if err := http.ListenAndServe(&#34;:8080&#34;, nil); err != nil {
         panic(err)
     }
 }
@@ -208,7 +208,7 @@ This is a8c0d0b5c784 running on linux/arm saying: Hello!
 </code></pre><p>Notice how the <em>hostname</em> matches the container ID on the controller:</p>
 <pre tabindex="0"><code>pi@ctrl $ docker container ls
 CONTAINER ID     IMAGE                COMMAND       CREATED          STATUS          PORTS                    NAMES
-a8c0d0b5c784     carmelo0x99/goweb:1.0   &quot;./main.go&quot;   14 minutes ago   Up 14 minutes   0.0.0.0:8888-&gt;8080/tcp   happy_spence
+a8c0d0b5c784     carmelo0x99/goweb:1.0   &#34;./main.go&#34;   14 minutes ago   Up 14 minutes   0.0.0.0:8888-&gt;8080/tcp   happy_spence
 </code></pre><p>Once we&rsquo;re satified with our image, we can push it to Docker Hub:</p>
 <pre tabindex="0"><code>pi@ctrl $ docker push carmelo0x99/goweb:1.0
 </code></pre><p><strong>NOTE</strong>: the step above is quite important because Docker Hub doesn&rsquo;t currently build images for ARM processors.</p>
@@ -243,11 +243,11 @@ fmm9uf112y6j    goweb.1        carmelo0x99/goweb:1.0   zero2     Running        
 w44yl47vtnzi    goweb.2        carmelo0x99/goweb:1.0   ctrl      Running           Running about a minute ago
 i5ky88du3kbp    goweb.3        carmelo0x99/goweb:1.0   zero1     Running           Running about a minute ago
 
-pi@ctrl $ docker service inspect --format=&quot;{{json .Endpoint.Spec.Ports}}&quot; goweb
-[{&quot;Protocol&quot;:&quot;tcp&quot;,&quot;TargetPort&quot;:8080,&quot;PublishedPort&quot;:8888,&quot;PublishMode&quot;:&quot;ingress&quot;}]
+pi@ctrl $ docker service inspect --format=&#34;{{json .Endpoint.Spec.Ports}}&#34; goweb
+[{&#34;Protocol&#34;:&#34;tcp&#34;,&#34;TargetPort&#34;:8080,&#34;PublishedPort&#34;:8888,&#34;PublishMode&#34;:&#34;ingress&#34;}]
 
-pi@ctrl $ docker service inspect --format=&quot;{{json .Spec.TaskTemplate.ContainerSpec.Image}}&quot; goweb
-&quot;carmelo0x99/goweb:1.0@sha256:***&quot;
+pi@ctrl $ docker service inspect --format=&#34;{{json .Spec.TaskTemplate.ContainerSpec.Image}}&#34; goweb
+&#34;carmelo0x99/goweb:1.0@sha256:***&#34;
 </code></pre><p>The test is, once agin, run from a different host. Notice how three replicas are responding in round-robin fashion:</p>
 <pre tabindex="0"><code>user@host $ curl http://10.0.2.207:8888/Hello\!
 This is 0801fa03baa6 running on linux/arm saying: Hello!

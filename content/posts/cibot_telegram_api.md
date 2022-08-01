@@ -1,21 +1,21 @@
 ---
 title: "CIBot: CounterIntelligence Bot, a cheap approach at keeping your home network under control"
 date: 2022-06-07T12:00:00+01:00
-draft: true
+draft: false
 ---
 
-I shouldn't have been but I was genuinely surprised when, upon login onto my tiny home server, I was greeted by:
+I know shouldn't have been but I was genuinely surprised when, upon login onto my tiny home server, I was greeted by:
 ```
 There have been 400-something unauthorized accesses since your last visit.
 ```
 
 400-something?!? Shouldn't a siren have gone off, red lights flashing in my lab?</br>
 Of course no. Not unless I'd set up something like that... who thought anyone would be interested in my minuscule "server"?</br>
-No data, nothing to steal... nothing but CPU cycles and RAM! That's what [botnets](https://en.wikipedia.org/wiki/Botnet) and black-hat hackers are after.</br>
+No data, nothing to steal... nothing iapparently interesting but CPU cycles and RAM! Which is precisely what [botnets](https://en.wikipedia.org/wiki/Botnet) and black-hat hackers are after.</br>
 </br>
 Confronted with the question, "should I shut down access or do something else?" I opted for _something else_.</br>
-I had nothing to lose, no precious data, a lot to learn. What did I learn?</br>
-Firstly, I had done my homework right &lt;put big smile here&gt;. Seemingly, nobody had been able to gain access to the box. For various reasons.</br>
+I had nothing to lose, no precious data, a lot to learni on the other hand. What did I learn then?</br>
+Firstly, I learned that I had done my homework right &lt;put big smile here&gt;. Seemingly, nobody had been able to gain access to the box. For various reasons.</br>
 To help focus on details, here's an example of the log:
 ```
 <timestamp> <hostname> sshd[6690]: Invalid user miguel from 62.234.92.111 port 46484 
@@ -26,11 +26,11 @@ To help focus on details, here's an example of the log:
 <timestamp> <hostname> sshd[6690]: Disconnected from invalid user miguel 62.234.92.111 port 46484 [preauth]
 <timestamp> <hostname> unix_chkpwd[6694]: password check failed for user (root)
 ```
-An analysis showed an interesting picture. My take is that my server wasn't being targeted by a single hacker, rather it was being scanned by a botnet so that it could join the force to build up some super-DDoS-weapon perhaps.
+An initial analysis showed an interesting picture. Multiple IPs, from different geographical locations: my server wasn't being targeted by a single hacker. Possibly, it was being probed by a botnet so that it could join the force to build up some super-DDoS-weapon perhaps.
 <img src="images/piechart.png">
 Luckily, something had gone wrong for the hackers. Here's a non-exhaustive list:
 - no obvious usernames, the hackers were attempting to login with `username + password`, my server didn't have any of the names in their list
-- **no password**, I had long disabled password-based access on my server(s), the lab's unwritten rule is key-based access only, here's one [article](https://linuxize.com/post/how-to-setup-passwordless-ssh-login/) as an example
+- in fact, **no password**!!! I had long disabled password-based access on my server(s), the lab's unwritten rule is key-based access only, here's one [article](https://linuxize.com/post/how-to-setup-passwordless-ssh-login/) as an example
 - in addition to that, **root** access had obviously been disabled
 
 YMMV, but there are many best practices around that may fit your use case. Hardening SSH isn't difficult and automating it, through Ansible for instance, is easy.</br>

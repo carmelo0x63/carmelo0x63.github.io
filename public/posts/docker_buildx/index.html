@@ -7,8 +7,8 @@
     <title>Buildx: building multi-arch images | carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
- x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello.">
-    <meta name="generator" content="Hugo 0.92.1" />
+x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: ARMv7 Processor rev 4 (v7l) On x86_64 hello.">
+    <meta name="generator" content="Hugo 0.101.0" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -30,7 +30,7 @@
     
     <meta property="og:title" content="Buildx: building multi-arch images" />
 <meta property="og:description" content="In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
- x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello." />
+x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: ARMv7 Processor rev 4 (v7l) On x86_64 hello." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://carmelo0x99.github.io/posts/docker_buildx/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-01-29T12:00:00+01:00" />
@@ -38,13 +38,13 @@
 
 <meta itemprop="name" content="Buildx: building multi-arch images">
 <meta itemprop="description" content="In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
- x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello."><meta itemprop="datePublished" content="2021-01-29T12:00:00+01:00" />
+x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: ARMv7 Processor rev 4 (v7l) On x86_64 hello."><meta itemprop="datePublished" content="2021-01-29T12:00:00+01:00" />
 <meta itemprop="dateModified" content="2021-01-29T12:00:00+01:00" />
-<meta itemprop="wordCount" content="542">
+<meta itemprop="wordCount" content="508">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Buildx: building multi-arch images"/>
 <meta name="twitter:description" content="In this post I&rsquo;ll explore how to build images that can run on multiple architectures. My scenario is composed of the two following hosts:
- x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz  ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq model name	: ARMv7 Processor rev 4 (v7l)   On x86_64 hello."/>
+x86_64 $ docker info | grep Architecture Architecture: x86_64 $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz ARM $ docker info | grep Architecture Architecture: armv7l $ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq model name	: ARMv7 Processor rev 4 (v7l) On x86_64 hello."/>
 
 	
   </head>
@@ -122,14 +122,14 @@
 <pre tabindex="0"><code>$ docker info | grep Architecture
  Architecture: x86_64
 
-$ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq
+$ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq
 model name	: Intel(R) Core(TM) i5-3317U CPU @ 1.70GHz
 </code></pre></li>
 <li>ARM
 <pre tabindex="0"><code>$ docker info | grep Architecture
  Architecture: armv7l
 
-$ cat /proc/cpuinfo | grep &quot;model name&quot; | uniq
+$ cat /proc/cpuinfo | grep &#34;model name&#34; | uniq
 model name	: ARMv7 Processor rev 4 (v7l)
 </code></pre></li>
 </ul>
@@ -137,10 +137,10 @@ model name	: ARMv7 Processor rev 4 (v7l)
 <p><code>hello.go</code>:</p>
 <pre tabindex="0"><code>package main
 
-import &quot;fmt&quot;
+import &#34;fmt&#34;
 
 func main() {
-    fmt.Println(&quot;Hello, world!\n&quot;)
+    fmt.Println(&#34;Hello, world!\n&#34;)
 }
 </code></pre><p><code>Dockerfile</code>:</p>
 <pre tabindex="0"><code>FROM golang:alpine AS builder
@@ -153,31 +153,22 @@ FROM alpine
 RUN mkdir /app
 WORKDIR /app
 COPY --from=builder /app/hello.go ./
-CMD [&quot;./hello.go&quot;]
+CMD [&#34;./hello.go&#34;]
 </code></pre><pre tabindex="0"><code>user@x86_64 $ docker build -t carmelo0x99/hellogo:x86_64 .
 
 user@x86_64 $ docker run carmelo0x99/hellogo:x86_64
 Hello, world!
 </code></pre><h3 id="now-running-the-same-image-on-arm-leads-to">Now, running the same image on ARM leads to&hellip;</h3>
 <pre tabindex="0"><code>user@arm $ docker run carmelo0x99/hellogo:x86_64
-standard_init_linux.go:211: exec user process caused &quot;exec format error&quot;
+standard_init_linux.go:211: exec user process caused &#34;exec format error&#34;
 </code></pre><p>Unsurprisingly:</p>
 <pre tabindex="0"><code>user@armi $ docker inspect carmelo0x99/hellogo:x86_64 | grep Architecture
-        &quot;Architecture&quot;: &quot;amd64&quot;,
-</code></pre><h3 id="enters-buildx">Enters buildx</h3>
+        &#34;Architecture&#34;: &#34;amd64&#34;,
+</code></pre><h3 id="enter-buildx">Enter buildx</h3>
 <pre tabindex="0"><code>user@x86_64 $ docker buildx version
 github.com/docker/buildx v0.5.1-docker 11057da37336192bfc57d81e02359ba7ba848e4a
 
 user@x86_64 $ export DOCKER_CLI_EXPERIMENTAL=enabled
-
-&lt;!--user@x86_64 $ docker run --rm --privileged docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64
-Unable to find image 'docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64' locally
-a7996909642ee92942dcd6cff44b9b95f08dad64: Pulling from docker/binfmt
-5d6ca6c8ba77: Pull complete
-b26a8e2c75fc: Pull complete
-3436361ddd98: Pull complete
-Digest: sha256:758ca0563f371b384cfd67b6590b5be2dc024fef45bc14a050ae104f0caad14e
-Status: Downloaded newer image for docker/binfmt:a7996909642ee92942dcd6cff44b9b95f08dad64--&gt;
 
 user@x86_64 $ docker buildx create --use --name builderx
 builderx

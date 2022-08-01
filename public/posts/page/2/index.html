@@ -7,7 +7,7 @@
     <title>carmelo0x99.github.io</title>
     <meta name="viewport" content="width=device-width,minimum-scale=1">
     <meta name="description" content="">
-    <meta name="generator" content="Hugo 0.92.1" />
+    <meta name="generator" content="Hugo 0.101.0" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -91,6 +91,27 @@
   <div class="bg-white mb3 pa4 gray overflow-hidden">
     <span class="f6 db">Posts</span>
     <h1 class="f3 near-black">
+      <a href="/posts/docker_in_depth/" class="link black dim">
+        Docker in depth: namespaces, cgroups, images from scratch
+      </a>
+    </h1>
+    <div class="nested-links f5 lh-copy nested-copy-line-height">
+      INDEX
+Images and containers Namespaces Cgroups Images from scratch Images and containers Let&rsquo;s take a closer look at what&rsquo;s in an image.
+NOTE: I&rsquo;m filtering out lots of info by using Docker&rsquo;s format command. {% raw %}
+user@laptop $ docker inspect --format=&#34;{{json .RootFS.Layers}}&#34; carmelo0x99/goweb:latest [&#34;sha256:5216338b40a7b96416b8b9858974bbe4acc3096ee60acbc4dfb1ee02aecceb10&#34;, &#34;sha256:a0b2ea330c61ec1ec3d25024a8ddaa6121e995e2e3dc2473c48bfdeb7adfab69&#34;, &#34;sha256:4b7b5c980fbe0abe030c29236a05764ea3c32f898d56495b2bc146d6b82a2c3d&#34;] {% endraw %} One can see that, for instance, the image above is made up of three different layers.
+Likewise, docker history can show how the image had been built:
+    </div>
+  </div>
+</div>
+
+        </div>
+      
+        <div class="relative w-100 w-30-l mb4 bg-white">
+          <div class="relative w-100 mb4 bg-white nested-copy-line-height">
+  <div class="bg-white mb3 pa4 gray overflow-hidden">
+    <span class="f6 db">Posts</span>
+    <h1 class="f3 near-black">
       <a href="/posts/docker_swarm_kvm/" class="link black dim">
         Docker Swarm on KVM (CentOS)
       </a>
@@ -117,7 +138,7 @@ $ sudo yum upgrade -y &amp;&amp; sudo yum install -y git yum-utils device-mapper
     </h1>
     <div class="nested-links f5 lh-copy nested-copy-line-height">
       INDEX
- The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally!  NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
+The basics: hardware architecture Our app, an HTTP server Docker Swarm, finally! NOTE: during this tutorial I&rsquo;ll be using ARM32v6 images since the Controller and the Nodes do not share a common hardware architecture. This topic, along with Buildx, are covered in another article.
 Installation of ClusterHAT has been described in a previous post.
 The basics: hardware architecture Controller:
 pi@ctrl $ docker info | grep Architecture Architecture: armv7l Pi Zeros:

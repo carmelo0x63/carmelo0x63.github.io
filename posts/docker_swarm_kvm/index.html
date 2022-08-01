@@ -10,7 +10,7 @@
 One thing I like about KVM is the ability to have templates and quickly install VM&rsquo;s through Kickstart.
 Let&rsquo;s just assume we have two VM&rsquo;s: swarm-master and swarm-node1. Installation of Docker follows the usual guidelines:
 $ sudo yum upgrade -y &amp;&amp; sudo yum install -y git yum-utils device-mapper-persistent-data lvm2 $ sudo yum-config-manager --add-repo https://download.">
-    <meta name="generator" content="Hugo 0.92.1" />
+    <meta name="generator" content="Hugo 0.101.0" />
     
     
       <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
@@ -148,24 +148,24 @@ sudo firewall-cmd --reload
 <pre tabindex="0"><code>package main
 
 import (
-    &quot;net/http&quot;
-    &quot;os&quot;
-    &quot;runtime&quot;
-    &quot;strings&quot;
+    &#34;net/http&#34;
+    &#34;os&#34;
+    &#34;runtime&#34;
+    &#34;strings&#34;
 )
 
 func sayHello(w http.ResponseWriter, r *http.Request) {
     hostname, _ := os.Hostname()
     message := r.URL.Path
-    message = strings.TrimPrefix(message, &quot;/&quot;)
-    message = &quot;This is &quot; + hostname + &quot; running on &quot; + runtime.GOOS + &quot;/&quot; + runtime.GOARCH + &quot; saying: &quot; + message + &quot;\n&quot;
+    message = strings.TrimPrefix(message, &#34;/&#34;)
+    message = &#34;This is &#34; + hostname + &#34; running on &#34; + runtime.GOOS + &#34;/&#34; + runtime.GOARCH + &#34; saying: &#34; + message + &#34;\n&#34;
 
     w.Write([]byte(message))
 }
 
 func main() {
-    http.HandleFunc(&quot;/&quot;, sayHello)
-    if err := http.ListenAndServe(&quot;:8080&quot;, nil); err != nil {
+    http.HandleFunc(&#34;/&#34;, sayHello)
+    if err := http.ListenAndServe(&#34;:8080&#34;, nil); err != nil {
         panic(err)
     }
 }
