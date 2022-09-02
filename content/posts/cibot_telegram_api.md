@@ -11,7 +11,7 @@ There have been 400-something unauthorized accesses since your last visit.
 
 400-something?!? Shouldn't a siren have gone off, red lights flashing in my lab?</br>
 Of course no. Not unless I'd set up something like that... who thought anyone would be interested in my minuscule "server"?</br>
-No data, nothing to steal... nothing iapparently interesting but CPU cycles and RAM! Which is precisely what [botnets](https://en.wikipedia.org/wiki/Botnet) and black-hat hackers are after.</br>
+No data, nothing to steal apparently. Nothing interesting but CPU cycles and RAM... which is precisely what [botnets](https://en.wikipedia.org/wiki/Botnet) and black-hat hackers are after.</br>
 </br>
 Confronted with the question, "should I shut down access or do something else?" I opted for _something else_.</br>
 I had nothing to lose, no precious data, a lot to learni on the other hand. What did I learn then?</br>
