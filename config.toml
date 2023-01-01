@@ -1,4 +1,9 @@
 baseURL = 'http://carmelo0x99.github.io/'
 languageCode = 'en-us'
 title = 'carmelo0x99.github.io'
-theme = "ananke"
+
+[module]
+[[module.imports]]
+#  path = "github.com/zwbetz-gh/cupper-hugo-theme"
+  path = "github.com/theNewDynamic/gohugo-theme-ananke"
+
