@@ -1,6 +1,0 @@
-baseURL = 'http://carmelo0x99.github.io/'
-languageCode = 'en-us'
-title = 'carmelo0x99.github.io'
-#theme = "ananke"
-theme = ["github.com/theNewDynamic/gohugo-theme-ananke"]
-
