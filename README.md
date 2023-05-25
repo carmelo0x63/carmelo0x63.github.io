@@ -6,17 +6,11 @@ Personal notes, small guides, ramblings I'd like to store somewhere public
 ### Hugo primer
 `brew install hugo`
 
+#### Edit posts
+`hugo new posts/<filename>`
+
 #### Start Hugo server in "draft" mode
 `hugo server -D [--bind="0.0.0.0"]`
-
-#### Edit posts
-`vi content/posts/<filename>`
-
-#### Convert draft pages into .html files
-`hugo -D`
-
-#### Copy public hierarchy (e.g. posts/, images/, 404.html) to top level directory
-`cp -a public/* .`
 
 #### Commit!!!
 
