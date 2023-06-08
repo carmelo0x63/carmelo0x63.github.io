@@ -94,15 +94,15 @@ default      docker
   default    default                     running v0.11.7-0.2...   linux/amd64, linux/amd64/v2, linux/386
 ```
 
-### NOTE: running with `--load` generates an error
+#### running with `--load` generates an error
 ```
 user@x86_64 $ docker buildx build -t carmelo0x99/hellogo:2.0 --platform linux/amd64,linux/386,linux/arm/v7,linux/arm/v6 --load -f Dockerfile.hello .
 [+] Building 0.0s (0/0)
 ERROR: docker exporter does not currently support exporting manifest lists
 ```
-[Buildx issue #59](https://github.com/docker/buildx/issues/59)
+**NOTE**: [Buildx issue #59](https://github.com/docker/buildx/issues/59)
 
-### `--push` works instead
+#### `--push` works instead
 ```
 user@x86_64 $ docker buildx build -t carmelo0x99/hellogo:2.0 --platform linux/amd64,linux/386,linux/arm/v7,linux/arm/v6 --push -f Dockerfile.hello .
 [+] Building 289.6s (51/51) FINISHED
@@ -155,7 +155,7 @@ user@x86_64 $ docker run --rm carmelo0x99/hellogo:2.0
 Hello, world!
 ```
 
-### on ARM after buildx
+### on ARM after Buildx
 We're good to go now. Same image we'd run on AMD/Intel/x86_64 runs **seamlessly** on ARM.
 ```
 user@arm $ docker pull carmelo0x99/hellogo:2.0
@@ -168,11 +168,14 @@ Digest: sha256:b642d8947aa2ecce374b15a4ac767b7cb4d5f2fe81709702afb1091875e23696
 Status: Downloaded newer image for carmelo0x99/hellogo:2.0
 docker.io/carmelo0x99/hellogo:2.0
 
+user@arm $ docker image inspect --format "{{.Architecture}}" carmelo0x99/hellogo:2.0
+arm
+
 user@arm $ docker run carmelo0x99/hellogo:2.0
 Hello, world!
 ```
 
-Finally, notice how the images lookl different on the two architectures:
+Finally, notice how the images are different on the two architectures:
 ```
 user@x86_64 $ docker image ls carmelo0x99/hellogo:2.0
 REPOSITORY            TAG       IMAGE ID       CREATED         SIZE
